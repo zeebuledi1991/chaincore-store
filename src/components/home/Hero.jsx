@@ -8,8 +8,8 @@ const TICKER = [
 "Ethereum",
 "Solana",
 "TRON",
-"Blockchain Testing",
-"Simulation Tooling",
+"Blockchain Integration",
+"High Quality Tool",
 "Multi-Network Validation"];
 
 
