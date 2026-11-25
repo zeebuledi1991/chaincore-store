@@ -1,15 +1,17 @@
 import { Image } from "@/components/ui/image";
 import SectionIntro from "@/components/site/SectionIntro";
+import { useContent } from "@/components/content/ContentProvider";
 import { BLOCKCHAINS, IMAGES } from "@/lib/catalog";
 
 export default function Networks() {
+  const t = useContent();
   return (
     <section className="relative border-b border-border/60 py-20 lg:py-28">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         <SectionIntro
-          label="Supported Networks"
-          title="Four blockchains. One consistent software standard"
-          description="Choose the network your workflow runs on. Flash packages you select at checkout."
+          label={t("home.networks.label")}
+          title={t("home.networks.title")}
+          description={t("home.networks.description")}
         />
 
         <div className="mt-12 grid gap-5 lg:grid-cols-[1.15fr_1fr] lg:items-stretch">
@@ -25,7 +27,7 @@ export default function Networks() {
                 Multi-network
               </p>
               <p className="mt-2 max-w-xs font-heading text-lg text-foreground">
-                All blockchains are monitored with our high tech softwires'.
+                {t("home.networks.caption")}
               </p>
             </div>
           </div>
@@ -50,7 +52,7 @@ export default function Networks() {
                   {chain.name}
                 </h3>
                 <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-                  {chain.note}
+                  {t(`home.networks.${chain.id}`)}
                 </p>
               </div>
             ))}

@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
+import { useContent } from "@/components/content/ContentProvider";
 
 export default function Brand({ compact = false }) {
+  const t = useContent();
   return (
     <Link to="/" className="group flex items-center gap-3">
       <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-primary/30 bg-primary/5 transition-colors duration-300 group-hover:border-primary/60">
@@ -21,11 +23,11 @@ export default function Brand({ compact = false }) {
       </span>
       <span className="flex flex-col leading-none">
         <span className="font-heading text-[15px] font-semibold tracking-[0.28em] text-foreground">
-          CHAINCORE
+          {t("site.brand.name")}
         </span>
         {!compact && (
           <span className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground">
-            Technologies LLC
+            {t("site.brand.suffix")}
           </span>
         )}
       </span>

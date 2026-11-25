@@ -4,12 +4,14 @@ import { AlertTriangle, ArrowRight, ArrowUpRight, Loader2, Lock, Wallet } from "
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import BlockchainSelector from "@/components/store/BlockchainSelector";
+import { useContent } from "@/components/content/ContentProvider";
 import { createCheckout } from "@/lib/server-fns";
 import { SUPPORT_EMAIL } from "@/lib/catalog";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export default function CheckoutPanel({ product }) {
+  const t = useContent();
   const checkout = useServerFn(createCheckout);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,14 +28,12 @@ export default function CheckoutPanel({ product }) {
     setError("");
     setPayUrl("");
 
-    if (name.trim().length < 2) return setError("Enter your full name.");
-    if (!EMAIL_RE.test(email.trim())) return setError("Enter a valid email address.");
-    if (requiresBlockchain && !blockchain)
-      return setError("Select the blockchain testing environment for this order.");
-    if (requiresBlockchain && !wallet.trim())
-      return setError("Enter the wallet address for this order.");
+    if (name.trim().length < 2) return setError(t("checkout.error.name"));
+    if (!EMAIL_RE.test(email.trim())) return setError(t("checkout.error.email"));
+    if (requiresBlockchain && !blockchain) return setError(t("checkout.error.blockchain"));
+    if (requiresBlockchain && !wallet.trim()) return setError(t("checkout.error.wallet"));
     if (wallet.trim() && !/^[A-Za-z0-9:_-]{16,120}$/.test(wallet.trim()))
-      return setError("Enter a valid wallet address.");
+      return setError(t("checkout.error.walletFormat"));
 
     setLoading(true);
     try {
@@ -72,39 +72,43 @@ export default function CheckoutPanel({ product }) {
       <div className="flex items-end justify-between border-b border-border/60 pb-5">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            Order total
+            {t("checkout.total")}
           </p>
           <p className="mt-1 font-heading text-3xl font-semibold text-foreground">
             {product.priceLabel}
           </p>
         </div>
         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-          USD
+          {t("checkout.currency")}
         </span>
       </div>
 
       <div className="mt-5 space-y-4">
         {requiresBlockchain && (
-          <BlockchainSelector value={blockchain} onChange={setBlockchain} />
+          <BlockchainSelector
+            value={blockchain}
+            onChange={setBlockchain}
+            label={t("checkout.environment")}
+          />
         )}
 
         <div className="space-y-1.5">
           <Label htmlFor="checkout-name" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            Full name
+            {t("checkout.fullName")}
           </Label>
           <Input
             id="checkout-name"
             value={name}
             onChange={(event) => setName(event.target.value)}
             autoComplete="name"
-            placeholder="Jordan Reyes"
+            placeholder={t("checkout.namePlaceholder")}
             className="bg-background/60"
           />
         </div>
 
         <div className="space-y-1.5">
           <Label htmlFor="checkout-email" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            Email for delivery
+            {t("checkout.email")}
           </Label>
           <Input
             id="checkout-email"
@@ -112,7 +116,7 @@ export default function CheckoutPanel({ product }) {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             autoComplete="email"
-            placeholder="you@company.com"
+            placeholder={t("checkout.emailPlaceholder")}
             className="bg-background/60"
           />
         </div>
@@ -124,13 +128,13 @@ export default function CheckoutPanel({ product }) {
               className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
             >
               <Wallet className="h-3.5 w-3.5" />
-              Add wallet address (required)
+              {t("checkout.wallet")}
             </Label>
             <Input
               id="checkout-wallet"
               value={wallet}
               onChange={(event) => setWallet(event.target.value)}
-              placeholder="Your receiving wallet address"
+              placeholder={t("checkout.walletPlaceholder")}
               className="bg-background/60 font-mono text-xs"
             />
           </div>
@@ -147,8 +151,7 @@ export default function CheckoutPanel({ product }) {
       {payUrl && (
         <div className="mt-4 rounded-md border border-primary/30 bg-primary/5 p-4">
           <p className="text-[13px] leading-relaxed text-foreground/90">
-            Your secure OxaPay invoice is ready. If the payment page did not open automatically, open
-            it below to complete your payment.
+            {t("checkout.invoiceReady")}
           </p>
           <a
             href={payUrl}
@@ -156,7 +159,7 @@ export default function CheckoutPanel({ product }) {
             rel="noreferrer"
             className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 font-mono text-[11px] uppercase tracking-[0.2em] text-primary-foreground transition-opacity hover:opacity-90"
           >
-            Open payment page
+            {t("checkout.openPayment")}
             <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
@@ -170,11 +173,11 @@ export default function CheckoutPanel({ product }) {
         {loading ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />
-            Creating invoice
+            {t("checkout.creating")}
           </>
         ) : (
           <>
-            Buy now
+            {t("checkout.buy")}
             <ArrowRight className="h-4 w-4" />
           </>
         )}
@@ -182,8 +185,7 @@ export default function CheckoutPanel({ product }) {
 
       <p className="mt-4 flex items-start gap-2 text-[11px] leading-relaxed text-muted-foreground">
         <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary/70" />
-        Secure checkout hosted by OxaPay. Payment is verified server-side before any licence is
-        issued. Need an invoice first? Email {SUPPORT_EMAIL}.
+        {t("checkout.note")} {SUPPORT_EMAIL}.
       </p>
     </form>
   );

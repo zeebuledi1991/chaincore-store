@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, ShieldAlert } from "lucide-react";
 import PageHeader from "@/components/site/PageHeader";
 import ProductCard from "@/components/site/ProductCard";
+import { useContent } from "@/components/content/ContentProvider";
 import { Image } from "@/components/ui/image";
 import { listProducts } from "@/lib/server-fns";
 import { PRODUCTS } from "@/lib/catalog";
@@ -29,6 +30,7 @@ export const Route = createFileRoute("/_site/products/")({
 });
 
 function ProductsPage() {
+  const t = useContent();
   const { products } = Route.useLoaderData();
   const license = products.find((product) => product.kind === "license") || products[0];
   const packages = products.filter((product) => product !== license);
@@ -36,19 +38,19 @@ function ProductsPage() {
   return (
     <>
       <PageHeader
-        label="Product Store"
-        title="Software licenses and Flash USDT packages."
-        description="Every price below is the final price in USD. Licenses are delivered by email after payment is verified; Flash packages will be provided on the blockchain you select.">
+        label={t("products.label")}
+        title={t("products.title")}
+        description={t("products.description")}>
         
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           <span className="flex items-center gap-2">
-            <Check className="h-3.5 w-3.5 text-primary" /> Server-verified payment
+            <Check className="h-3.5 w-3.5 text-primary" /> {t("products.badge.payment")}
           </span>
           <span className="flex items-center gap-2">
-            <Check className="h-3.5 w-3.5 text-primary" /> Email delivery
+            <Check className="h-3.5 w-3.5 text-primary" /> {t("products.badge.email")}
           </span>
           <span className="flex items-center gap-2">
-            <Check className="h-3.5 w-3.5 text-primary" /> OxaPay crypto checkout
+            <Check className="h-3.5 w-3.5 text-primary" /> {t("products.badge.oxapay")}
           </span>
         </div>
       </PageHeader>
@@ -65,7 +67,7 @@ function ProductsPage() {
               
                 <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
                 <div className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-primary-foreground">
-                  Flagship licence
+                  {t("products.flagshipBadge")}
                 </div>
               </div>
               <div>
@@ -95,7 +97,7 @@ function ProductsPage() {
                   params={{ slug: license.slug }}
                   className="group inline-flex items-center gap-2.5 rounded-md bg-primary px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.2em] text-primary-foreground transition-all duration-300 hover:shadow-[0_0_45px_-12px_hsl(184_100%_50%/0.9)]">
                   
-                    Buy now
+                    {t("products.buyNow")}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>

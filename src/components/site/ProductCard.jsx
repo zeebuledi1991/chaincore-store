@@ -1,9 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Layers } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import { useContent } from "@/components/content/ContentProvider";
 import { cn } from "@/lib/utils";
 
 export default function ProductCard({ product, index = 0 }) {
+  const t = useContent();
   const isLicense = product.kind === "license";
 
   return (
@@ -27,7 +29,7 @@ export default function ProductCard({ product, index = 0 }) {
         </div>
         {isLicense && (
           <div className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-primary-foreground">
-            Flagship
+            {t("products.card.flagship")}
           </div>
         )}
       </div>
@@ -40,7 +42,7 @@ export default function ProductCard({ product, index = 0 }) {
           <div className="text-right">
             <div className="font-mono text-xl font-medium text-primary">{product.priceLabel}</div>
             <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
-              {product.unitLabel || "USD"}
+              {product.unitLabel || t("products.card.currency")}
             </div>
           </div>
         </div>
@@ -51,8 +53,8 @@ export default function ProductCard({ product, index = 0 }) {
           <div className="mt-5 flex items-center gap-2 rounded-md border border-border/70 bg-background/40 px-3 py-2.5">
             <Layers className="h-3.5 w-3.5 text-primary" />
             <span className="font-mono text-[11px] tracking-[0.08em] text-foreground/85">
-              {new Intl.NumberFormat("en-US").format(product.simulatedUnits)} Flash USDT you'll
-              receive
+              {new Intl.NumberFormat("en-US").format(product.simulatedUnits)}{" "}
+              {t("products.card.units")}
             </span>
           </div>
         )}
@@ -62,7 +64,7 @@ export default function ProductCard({ product, index = 0 }) {
           params={{ slug: product.slug }}
           className="mt-6 inline-flex items-center justify-between gap-2 border-t border-border/70 pt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/85 transition-colors hover:text-primary"
         >
-          View product
+          {t("products.card.view")}
           <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
       </div>

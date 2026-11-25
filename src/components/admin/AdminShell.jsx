@@ -9,6 +9,7 @@ import {
   LogOut,
   MessageSquare,
   Package,
+  PenLine,
   Receipt,
 } from "lucide-react";
 
@@ -19,6 +20,7 @@ const NAV = [
   { to: "/admin/licenses", label: "Licenses", icon: KeyRound },
   { to: "/admin/custom-orders", label: "Custom Requests", icon: FileText },
   { to: "/admin/inquiries", label: "Inquiries", icon: MessageSquare },
+  { to: "/admin/content", label: "Website Content", icon: PenLine },
 ];
 
 export default function AdminShell({ children }) {

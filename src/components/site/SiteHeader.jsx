@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import Brand from "@/components/site/Brand";
+import { useContent } from "@/components/content/ContentProvider";
+import { SUPPORT_EMAIL } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 
-export const NAV_ITEMS = [
-  { label: "Home", to: "/" },
-  { label: "Products", to: "/products" },
-  { label: "About Us", to: "/about" },
-  { label: "Privacy Policy", to: "/privacy-policy" },
-  { label: "Contact Us", to: "/contact" },
+const NAV_LINKS = [
+  { key: "site.nav.home", to: "/" },
+  { key: "site.nav.products", to: "/products" },
+  { key: "site.nav.about", to: "/about" },
+  { key: "site.nav.privacy", to: "/privacy-policy" },
+  { key: "site.nav.contact", to: "/contact" },
 ];
 
 export default function SiteHeader() {
+  const t = useContent();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
@@ -45,7 +48,7 @@ export default function SiteHeader() {
           <Brand />
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
-            {NAV_ITEMS.map((item) => {
+            {NAV_LINKS.map((item) => {
               const isActive =
                 item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
               return (
@@ -57,7 +60,7 @@ export default function SiteHeader() {
                     isActive ? "text-primary" : "text-muted-foreground"
                   )}
                 >
-                  {item.label}
+                  {t(item.key)}
                 </Link>
               );
             })}
@@ -68,7 +71,7 @@ export default function SiteHeader() {
               to="/custom-order"
               className="group relative overflow-hidden rounded-md border border-primary/40 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
             >
-              Custom Order
+              {t("site.nav.custom")}
             </Link>
           </div>
 
@@ -97,14 +100,14 @@ export default function SiteHeader() {
             </button>
           </div>
           <nav className="mt-6 flex flex-col px-5" aria-label="Mobile">
-            {NAV_ITEMS.map((item, index) => (
+            {NAV_LINKS.map((item, index) => (
               <Link
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
                 className="flex items-baseline justify-between border-b border-border/60 py-5 font-heading text-2xl text-foreground"
               >
-                {item.label}
+                {t(item.key)}
                 <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
                   0{index + 1}
                 </span>
@@ -115,13 +118,13 @@ export default function SiteHeader() {
               onClick={() => setOpen(false)}
               className="mt-8 rounded-md bg-primary px-5 py-4 text-center font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground"
             >
-              Submit Custom Request
+              {t("site.nav.customMobile")}
             </Link>
             <a
-              href="mailto:support@chaincore.store"
+              href={`mailto:${SUPPORT_EMAIL}`}
               className="mt-4 text-center font-mono text-[11px] tracking-[0.16em] text-muted-foreground"
             >
-              support@chaincore.store
+              {SUPPORT_EMAIL}
             </a>
           </nav>
         </div>

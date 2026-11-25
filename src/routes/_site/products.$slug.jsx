@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Check, Info } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import CheckoutPanel from "@/components/store/CheckoutPanel";
+import { useContent } from "@/components/content/ContentProvider";
 import { listProducts } from "@/lib/server-fns";
 import { PRODUCTS, formatUsd } from "@/lib/catalog";
 
@@ -33,6 +34,7 @@ export const Route = createFileRoute("/_site/products/$slug")({
 });
 
 function ProductPage() {
+  const t = useContent();
   const { product, related } = Route.useLoaderData();
 
   return (
@@ -43,7 +45,7 @@ function ProductPage() {
           className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-primary"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          All products
+          {t("product.back")}
         </Link>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
@@ -72,7 +74,7 @@ function ProductPage() {
               <div className="mt-6 grid grid-cols-2 gap-4 rounded-xl border border-border/70 bg-card/40 p-5">
                 <div>
                   <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground">
-                    Simulated units
+                    {t("product.unitsLabel")}
                   </p>
                   <p className="mt-1.5 font-heading text-xl text-foreground">
                     {product.simulatedUnits.toLocaleString("en-US")}
@@ -80,7 +82,7 @@ function ProductPage() {
                 </div>
                 <div>
                   <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground">
-                    Package price
+                    {t("product.priceLabel")}
                   </p>
                   <p className="mt-1.5 font-heading text-xl text-primary">
                     {product.priceLabel || formatUsd(product.price)}
@@ -91,7 +93,7 @@ function ProductPage() {
 
             <div className="mt-8">
               <h2 className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-                Included
+                {t("product.included")}
               </h2>
               <ul className="mt-4 space-y-3">
                 {product.features.map((feature) => (
@@ -110,9 +112,7 @@ function ProductPage() {
               <div className="mt-6 flex items-start gap-3 rounded-lg border border-primary/25 bg-primary/5 p-4">
                 <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                 <p className="text-[13px] leading-relaxed text-foreground/85">
-                  These packages contain simulated test units only, not genuine transferable USDT.
-                  Units are provisioned for testing and simulation workflows in your selected
-                  environment and hold no monetary value.
+                  {t("product.note")}
                 </p>
               </div>
             )}
@@ -122,26 +122,24 @@ function ProductPage() {
             <CheckoutPanel product={product} />
             <div className="mt-4 rounded-xl border border-border/70 bg-card/30 p-5">
               <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground">
-                Delivery
+                {t("product.deliveryTitle")}
               </p>
               <ul className="mt-3 space-y-2 text-[13px] leading-relaxed text-muted-foreground">
-                {product.kind === "simulation" ? (
-                  <>
-                    <li>Receipt emailed after payment is verified.</li>
-                    <li>Flash USDT will be sent within 10 minutes.</li>
-                    <li>We will use your selected blockchain.</li>
-                    <li>Flash USDT validation period: 180 days.</li>
-                  </>
-                ) : (
-                  <>
-                    <li>License key and receipt emailed after payment is verified.</li>
-                    <li>
-                      Software access apk with instructions will be sent after payment verified on
-                      network.
-                    </li>
-                    <li>Flash USDT validation period: 180 days.</li>
-                  </>
-                )}
+                {(product.kind === "simulation"
+                  ? [
+                      t("product.delivery.flash.1"),
+                      t("product.delivery.flash.2"),
+                      t("product.delivery.flash.3"),
+                      t("product.delivery.flash.4"),
+                    ]
+                  : [
+                      t("product.delivery.license.1"),
+                      t("product.delivery.license.2"),
+                      t("product.delivery.license.3"),
+                    ]
+                ).map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -150,7 +148,7 @@ function ProductPage() {
         {related.length > 0 && (
           <div className="mt-16 border-t border-border/60 pt-10">
             <h2 className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-              Other products
+              {t("product.related")}
             </h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
               {related.map((item) => (
