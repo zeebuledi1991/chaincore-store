@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import Brand from "@/components/site/Brand";
+import ContentLink from "@/components/content/ContentLink";
 import { useContent } from "@/components/content/ContentProvider";
 import { SUPPORT_EMAIL } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { key: "site.nav.home", to: "/" },
-  { key: "site.nav.products", to: "/products" },
-  { key: "site.nav.about", to: "/about" },
-  { key: "site.nav.privacy", to: "/privacy-policy" },
-  { key: "site.nav.contact", to: "/contact" },
+  { key: "site.nav.home", urlKey: "site.nav.home.url" },
+  { key: "site.nav.products", urlKey: "site.nav.products.url" },
+  { key: "site.nav.about", urlKey: "site.nav.about.url" },
+  { key: "site.nav.privacy", urlKey: "site.nav.privacy.url" },
+  { key: "site.nav.contact", urlKey: "site.nav.contact.url" },
 ];
 
 export default function SiteHeader() {
@@ -49,30 +50,30 @@ export default function SiteHeader() {
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
             {NAV_LINKS.map((item) => {
-              const isActive =
-                item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
+              const target = t(item.urlKey);
+              const isActive = target === "/" ? pathname === "/" : pathname.startsWith(target);
               return (
-                <Link
-                  key={item.to}
-                  to={item.to}
+                <ContentLink
+                  key={item.key}
+                  to={target}
                   className={cn(
                     "relative rounded-md px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.18em] transition-colors duration-300 hover:text-foreground",
                     isActive ? "text-primary" : "text-muted-foreground"
                   )}
                 >
                   {t(item.key)}
-                </Link>
+                </ContentLink>
               );
             })}
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <Link
-              to="/custom-order"
+            <ContentLink
+              to={t("site.nav.custom.url")}
               className="group relative overflow-hidden rounded-md border border-primary/40 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
             >
               {t("site.nav.custom")}
-            </Link>
+            </ContentLink>
           </div>
 
           <button
@@ -101,9 +102,9 @@ export default function SiteHeader() {
           </div>
           <nav className="mt-6 flex flex-col px-5" aria-label="Mobile">
             {NAV_LINKS.map((item, index) => (
-              <Link
-                key={item.to}
-                to={item.to}
+              <ContentLink
+                key={item.key}
+                to={t(item.urlKey)}
                 onClick={() => setOpen(false)}
                 className="flex items-baseline justify-between border-b border-border/60 py-5 font-heading text-2xl text-foreground"
               >
@@ -111,15 +112,15 @@ export default function SiteHeader() {
                 <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
                   0{index + 1}
                 </span>
-              </Link>
+              </ContentLink>
             ))}
-            <Link
-              to="/custom-order"
+            <ContentLink
+              to={t("site.nav.custom.url")}
               onClick={() => setOpen(false)}
               className="mt-8 rounded-md bg-primary px-5 py-4 text-center font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground"
             >
               {t("site.nav.customMobile")}
-            </Link>
+            </ContentLink>
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
               className="mt-4 text-center font-mono text-[11px] tracking-[0.16em] text-muted-foreground"

@@ -1,7 +1,7 @@
 import { Image } from "@/components/ui/image";
 import SectionIntro from "@/components/site/SectionIntro";
 import { useContent } from "@/components/content/ContentProvider";
-import { BLOCKCHAINS, IMAGES } from "@/lib/catalog";
+import { BLOCKCHAINS } from "@/lib/catalog";
 
 export default function Networks() {
   const t = useContent();
@@ -17,7 +17,7 @@ export default function Networks() {
         <div className="mt-12 grid gap-5 lg:grid-cols-[1.15fr_1fr] lg:items-stretch">
           <div className="relative overflow-hidden rounded-xl border border-border/70">
             <Image
-              src={IMAGES.networks}
+              src={t("site.image.networks")}
               alt="Abstract network topology of four connected nodes"
               className="h-full min-h-[260px] w-full object-cover"
             />

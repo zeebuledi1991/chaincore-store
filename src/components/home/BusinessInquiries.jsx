@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
 import { ArrowRight, Mail } from "lucide-react";
+import ContentLink from "@/components/content/ContentLink";
 import { useContent } from "@/components/content/ContentProvider";
 import { SUPPORT_EMAIL } from "@/lib/catalog";
 
@@ -29,19 +29,19 @@ export default function BusinessInquiries() {
                 {t("home.inquiry.description")}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  to="/custom-order"
+                <ContentLink
+                  to={t("home.inquiry.ctaPrimary.url")}
                   className="group inline-flex items-center justify-center gap-2.5 rounded-md bg-primary px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.18em] text-primary-foreground transition-shadow duration-300 hover:shadow-[0_0_40px_-12px_hsl(184_100%_50%/0.9)]"
                 >
                   {t("home.inquiry.ctaPrimary")}
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-                <Link
-                  to="/contact"
+                </ContentLink>
+                <ContentLink
+                  to={t("home.inquiry.ctaSecondary.url")}
                   className="inline-flex items-center justify-center gap-2.5 rounded-md border border-border px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground transition-colors hover:border-primary/50 hover:text-primary"
                 >
                   {t("home.inquiry.ctaSecondary")}
-                </Link>
+                </ContentLink>
               </div>
             </div>
 

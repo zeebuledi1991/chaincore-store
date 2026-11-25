@@ -1,9 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Boxes, Compass, Layers, ShieldCheck } from "lucide-react";
 import PageHeader from "@/components/site/PageHeader";
+import ContentLink from "@/components/content/ContentLink";
 import { useContent } from "@/components/content/ContentProvider";
 import { Image } from "@/components/ui/image";
-import { IMAGES } from "@/lib/catalog";
 
 export const Route = createFileRoute("/_site/about")({
   head: () => ({
@@ -70,7 +70,7 @@ function AboutPage() {
 
             <div className="relative overflow-hidden rounded-xl border border-border/70">
               <Image
-                src={IMAGES.facility}
+                src={t("site.image.about")}
                 alt="Cold-lit architectural interior representing ChainCore engineering infrastructure"
                 className="aspect-[4/3] w-full object-cover"
               />
@@ -116,19 +116,19 @@ function AboutPage() {
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link
-                to="/products"
+              <ContentLink
+                to={t("about.cta.primary.url")}
                 className="group inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.18em] text-primary-foreground"
               >
                 {t("about.cta.primary")}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                to="/contact"
+              </ContentLink>
+              <ContentLink
+                to={t("about.cta.secondary.url")}
                 className="rounded-md border border-border px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground hover:border-primary/50 hover:text-primary"
               >
                 {t("about.cta.secondary")}
-              </Link>
+              </ContentLink>
             </div>
           </div>
         </div>

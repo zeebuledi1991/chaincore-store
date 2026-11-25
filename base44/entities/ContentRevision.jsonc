@@ -1,0 +1,61 @@
+{
+  "name": "ContentRevision",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Content key that changed"
+    },
+    "previous_value": {
+      "type": "string",
+      "description": "Value that was live before this change"
+    },
+    "published_value": {
+      "type": "string",
+      "description": "Value that was published by this change"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "publish",
+        "restore",
+        "reset"
+      ],
+      "enumColors": [
+        "blue",
+        "purple",
+        "gray"
+      ],
+      "default": "publish"
+    },
+    "changed_by": {
+      "type": "string",
+      "description": "Administrator email"
+    }
+  },
+  "required": [
+    "key"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

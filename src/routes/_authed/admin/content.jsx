@@ -1,22 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
-import ContentEditor from "@/components/admin/ContentEditor";
-import { listSiteContent } from "@/lib/content-fns";
+import CmsEditor from "@/components/admin/cms/CmsEditor";
+import { listCmsContent, listContentRevisions } from "@/lib/content-fns";
 
 export const Route = createFileRoute("/_authed/admin/content")({
-  loader: () => listSiteContent(),
+  loader: async () => {
+    try {
+      const [fields, revisions] = await Promise.all([listCmsContent(), listContentRevisions()]);
+      return { fields, revisions };
+    } catch (error) {
+      // Non-admins see the access screen from the admin layout instead of an error page.
+      return { fields: [], revisions: [] };
+    }
+  },
   component: ContentPage,
 });
 
 function ContentPage() {
-  const fields = Route.useLoaderData();
-  return (
-    <div>
-      <h1 className="text-2xl font-semibold text-foreground">Website content</h1>
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-        Every line of text on the public website is editable here. Change a field and press save —
-        the live site updates immediately.
-      </p>
-      <ContentEditor fields={fields} />
-    </div>
-  );
+  const { fields, revisions } = Route.useLoaderData();
+  return <CmsEditor fields={fields} revisions={revisions} />;
 }

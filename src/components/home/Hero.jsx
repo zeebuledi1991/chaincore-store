@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import ContentLink from "@/components/content/ContentLink";
 import { useContent } from "@/components/content/ContentProvider";
-import { BLOCKCHAINS, IMAGES } from "@/lib/catalog";
+import { BLOCKCHAINS } from "@/lib/catalog";
 
 export default function Hero() {
   const t = useContent();
@@ -46,19 +46,19 @@ export default function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <Link
-              to="/products"
+            <ContentLink
+              to={t("home.hero.ctaPrimary.url")}
               className="group inline-flex items-center justify-center gap-2.5 rounded-md bg-primary px-7 py-4 font-mono text-[11px] uppercase tracking-[0.2em] text-primary-foreground transition-all duration-300 hover:shadow-[0_0_50px_-10px_hsl(184_100%_50%/0.8)]"
             >
               {t("home.hero.ctaPrimary")}
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-            <Link
-              to="/contact"
+            </ContentLink>
+            <ContentLink
+              to={t("home.hero.ctaSecondary.url")}
               className="inline-flex items-center justify-center gap-2.5 rounded-md border border-border bg-card/40 px-7 py-4 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground transition-colors duration-300 hover:border-primary/50 hover:text-primary"
             >
               {t("home.hero.ctaSecondary")}
-            </Link>
+            </ContentLink>
           </div>
 
           <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-border/60 pt-7">
@@ -76,7 +76,7 @@ export default function Hero() {
         <div className="relative animate-rise" style={{ animationDelay: "160ms" }}>
           <div className="relative overflow-hidden rounded-xl border border-border/80 bg-card">
             <Image
-              src={IMAGES.hero}
+              src={t("site.image.hero")}
               alt="Abstract silver blockchain ledger filaments lit in cyan"
               className="aspect-[4/5] w-full object-cover sm:aspect-[5/4] lg:aspect-[4/4.4]"
             />

@@ -8,12 +8,24 @@
     },
     "value": {
       "type": "string",
-      "description": "The text shown on the website"
+      "description": "Published value shown on the live website"
+    },
+    "draft_value": {
+      "type": "string",
+      "description": "Unpublished draft value waiting to be published"
+    },
+    "hidden": {
+      "type": "boolean",
+      "default": false,
+      "description": "Hide this element on the live website"
+    },
+    "updated_by": {
+      "type": "string",
+      "description": "Email of the administrator who last edited this element"
     }
   },
   "required": [
-    "key",
-    "value"
+    "key"
   ],
   "rls": {
     "read": {},

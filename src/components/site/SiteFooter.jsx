@@ -1,19 +1,19 @@
-import { Link } from "@tanstack/react-router";
 import Brand from "@/components/site/Brand";
+import ContentLink from "@/components/content/ContentLink";
 import { useContent } from "@/components/content/ContentProvider";
 import { SUPPORT_EMAIL } from "@/lib/catalog";
 
 const NAVIGATE = [
-  { key: "site.nav.home", to: "/" },
-  { key: "site.nav.products", to: "/products" },
-  { key: "site.nav.about", to: "/about" },
-  { key: "site.nav.contact", to: "/contact" },
-  { key: "site.nav.custom", to: "/custom-order" },
+  { key: "site.nav.home", urlKey: "site.nav.home.url" },
+  { key: "site.nav.products", urlKey: "site.nav.products.url" },
+  { key: "site.nav.about", urlKey: "site.nav.about.url" },
+  { key: "site.nav.contact", urlKey: "site.nav.contact.url" },
+  { key: "site.nav.custom", urlKey: "site.nav.custom.url" },
 ];
 
 const LEGAL = [
-  { label: "Privacy Policy", to: "/privacy-policy" },
-  { label: "Returns Policy", to: "/returns-policy" },
+  { labelKey: "site.footer.legal.privacy", urlKey: "site.footer.legal.privacy.url" },
+  { labelKey: "site.footer.legal.returns", urlKey: "site.footer.legal.returns.url" },
 ];
 
 export default function SiteFooter() {
@@ -44,13 +44,13 @@ export default function SiteFooter() {
             </h2>
             <ul className="mt-5 space-y-3">
               {NAVIGATE.map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
+                <li key={item.key}>
+                  <ContentLink
+                    to={t(item.urlKey)}
                     className="text-sm text-foreground/80 transition-colors hover:text-primary"
                   >
                     {t(item.key)}
-                  </Link>
+                  </ContentLink>
                 </li>
               ))}
             </ul>
@@ -62,13 +62,13 @@ export default function SiteFooter() {
             </h2>
             <ul className="mt-5 space-y-3">
               {LEGAL.map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
+                <li key={item.labelKey}>
+                  <ContentLink
+                    to={t(item.urlKey)}
                     className="text-sm text-foreground/80 transition-colors hover:text-primary"
                   >
-                    {item.label}
-                  </Link>
+                    {t(item.labelKey)}
+                  </ContentLink>
                 </li>
               ))}
             </ul>

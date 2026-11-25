@@ -305,6 +305,49 @@ export const CONTENT_FIELDS = [
   { key: "order.checking", group: "Order status page", label: "Checking status text", default: "Checking every few seconds" },
   { key: "order.notFound.title", group: "Order status page", label: "Not found heading", default: "Order not found" },
   { key: "order.notFound.body", group: "Order status page", label: "Not found text", multiline: true, default: "Check the link in your confirmation email, or contact" },
+
+  // Navigation & link destinations
+  { key: "site.nav.home.url", group: "Brand & navigation", label: "Home link destination", type: "url", default: "/" },
+  { key: "site.nav.products.url", group: "Brand & navigation", label: "Products link destination", type: "url", default: "/products" },
+  { key: "site.nav.about.url", group: "Brand & navigation", label: "About link destination", type: "url", default: "/about" },
+  { key: "site.nav.privacy.url", group: "Brand & navigation", label: "Privacy link destination", type: "url", default: "/privacy-policy" },
+  { key: "site.nav.contact.url", group: "Brand & navigation", label: "Contact link destination", type: "url", default: "/contact" },
+  { key: "site.nav.custom.url", group: "Brand & navigation", label: "Custom Order button destination", type: "url", default: "/custom-order" },
+
+  // Footer links
+  { key: "site.footer.legal.privacy", group: "Footer", label: "Footer link: Privacy Policy", default: "Privacy Policy" },
+  { key: "site.footer.legal.privacy.url", group: "Footer", label: "Footer link destination: Privacy Policy", type: "url", default: "/privacy-policy" },
+  { key: "site.footer.legal.returns", group: "Footer", label: "Footer link: Returns Policy", default: "Returns Policy" },
+  { key: "site.footer.legal.returns.url", group: "Footer", label: "Footer link destination: Returns Policy", type: "url", default: "/returns-policy" },
+
+  // Button destinations
+  { key: "home.hero.ctaPrimary.url", group: "Home — Hero", label: "Main button destination", type: "url", default: "/products" },
+  { key: "home.hero.ctaSecondary.url", group: "Home — Hero", label: "Second button destination", type: "url", default: "/contact" },
+  { key: "home.inquiry.ctaPrimary.url", group: "Home — Business inquiries", label: "Main button destination", type: "url", default: "/custom-order" },
+  { key: "home.inquiry.ctaSecondary.url", group: "Home — Business inquiries", label: "Second button destination", type: "url", default: "/contact" },
+  { key: "about.cta.primary.url", group: "About page", label: "Main button destination", type: "url", default: "/products" },
+  { key: "about.cta.secondary.url", group: "About page", label: "Second button destination", type: "url", default: "/contact" },
+
+  // Images & media
+  { key: "site.image.hero", group: "Images & media", label: "Homepage hero image", type: "image", default: "https://media.base44.com/images/public/6b06b9729db2cddaa3b47d80/19a37223fd6006eaf33cc6b0ca25e9e8_generated_962bfcdf.png" },
+  { key: "site.image.networks", group: "Images & media", label: "Homepage networks image", type: "image", default: "https://media.base44.com/images/public/6b06b9729db2cddaa3b47d80/6b06ec7968f627af5c8109a64ad81c96_generated_259313c9.jpg" },
+  { key: "site.image.about", group: "Images & media", label: "About page image", type: "image", default: "https://media.base44.com/images/public/6b06b9729db2cddaa3b47d80/194470f04c894029c6337bd920a1f954_generated_2413bb07.png" },
+
+  // SEO & metadata
+  { key: "seo.home.title", group: "SEO & metadata", label: "Homepage title", default: "ChainCore Technologies LLC — Powering the Future of Digital Innovation" },
+  { key: "seo.home.description", group: "SEO & metadata", label: "Homepage description", multiline: true, default: "ChainCore Technologies LLC delivers blockchain software development, testing and simulation tooling for BNB Chain, Ethereum, Solana and TRON." },
+  { key: "seo.products.title", group: "SEO & metadata", label: "Products page title", default: "Products — ChainCore Technologies LLC" },
+  { key: "seo.products.description", group: "SEO & metadata", label: "Products page description", multiline: true, default: "Complete software licence and simulation packages for blockchain testing across BNB Chain, Ethereum, Solana and TRON." },
+  { key: "seo.about.title", group: "SEO & metadata", label: "About page title", default: "About Us — ChainCore Technologies LLC" },
+  { key: "seo.about.description", group: "SEO & metadata", label: "About page description", multiline: true, default: "ChainCore Technologies LLC develops blockchain software, digital tools and multi-network testing solutions. Our mission is to make blockchain technology more accessible." },
+  { key: "seo.contact.title", group: "SEO & metadata", label: "Contact page title", default: "Contact Us — ChainCore Technologies LLC" },
+  { key: "seo.contact.description", group: "SEO & metadata", label: "Contact page description", multiline: true, default: "Contact ChainCore Technologies LLC about blockchain software, testing and simulation solutions. Email support@chaincore.store." },
+  { key: "seo.customOrder.title", group: "SEO & metadata", label: "Custom Order page title", default: "Custom Order — ChainCore Technologies LLC" },
+  { key: "seo.customOrder.description", group: "SEO & metadata", label: "Custom Order page description", multiline: true, default: "Request a custom simulation volume, licence scope or multi-network testing engagement from ChainCore Technologies LLC." },
+  { key: "seo.privacy.title", group: "SEO & metadata", label: "Privacy Policy page title", default: "Privacy Policy — ChainCore Technologies LLC" },
+  { key: "seo.privacy.description", group: "SEO & metadata", label: "Privacy Policy page description", multiline: true, default: "How ChainCore Technologies LLC collects, uses and protects customer information, order data and payment details." },
+  { key: "seo.returns.title", group: "SEO & metadata", label: "Returns Policy page title", default: "Returns Policy — ChainCore Technologies LLC" },
+  { key: "seo.returns.description", group: "SEO & metadata", label: "Returns Policy page description", multiline: true, default: "Refund eligibility, request procedure, digital delivery terms and support timelines for ChainCore Technologies LLC purchases." },
 ];
 
 export const CONTENT_DEFAULTS = Object.fromEntries(

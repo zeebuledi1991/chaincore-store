@@ -20,7 +20,7 @@ const NAV = [
   { to: "/admin/licenses", label: "Licenses", icon: KeyRound },
   { to: "/admin/custom-orders", label: "Custom Requests", icon: FileText },
   { to: "/admin/inquiries", label: "Inquiries", icon: MessageSquare },
-  { to: "/admin/content", label: "Website Content", icon: PenLine },
+  { to: "/admin/content", label: "Website CMS", icon: PenLine },
 ];
 
 export default function AdminShell({ children }) {
