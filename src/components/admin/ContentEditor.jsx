@@ -14,29 +14,34 @@ export default function ContentEditor({ fields }) {
     Object.fromEntries(fields.map((field) => [field.key, field.value]))
   );
   const [query, setQuery] = useState("");
+  const [activeGroup, setActiveGroup] = useState("");
   const [status, setStatus] = useState("");
   const [saving, setSaving] = useState(false);
 
   const changedCount = fields.filter((field) => values[field.key] !== field.value).length;
 
+  const allGroups = useMemo(() => [...new Set(fields.map((field) => field.group))], [fields]);
+
   const groups = useMemo(() => {
     const term = query.trim().toLowerCase();
-    const matches = fields.filter(
-      (field) =>
+    const matches = fields.filter((field) => {
+      if (activeGroup && field.group !== activeGroup) return false;
+      return (
         !term ||
         field.label.toLowerCase().includes(term) ||
         field.group.toLowerCase().includes(term) ||
         String(values[field.key] || "")
           .toLowerCase()
           .includes(term)
-    );
+      );
+    });
     const grouped = new Map();
     for (const field of matches) {
       if (!grouped.has(field.group)) grouped.set(field.group, []);
       grouped.get(field.group).push(field);
     }
     return [...grouped.entries()];
-  }, [fields, query, values]);
+  }, [fields, query, values, activeGroup]);
 
   async function handleSave() {
     const entries = fields
@@ -82,6 +87,23 @@ export default function ContentEditor({ fields }) {
             Save changes
           </button>
         </div>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {["", ...allGroups].map((group) => (
+          <button
+            key={group || "all"}
+            type="button"
+            onClick={() => setActiveGroup(group)}
+            className={`rounded-full border px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors ${
+              activeGroup === group
+                ? "border-primary/60 bg-primary/10 text-primary"
+                : "border-border/70 bg-background/40 text-muted-foreground hover:border-border hover:text-foreground"
+            }`}
+          >
+            {group || "All pages"}
+          </button>
+        ))}
       </div>
 
       <div className="mt-6 space-y-6">

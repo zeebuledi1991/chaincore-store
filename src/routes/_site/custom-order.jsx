@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { AlertTriangle, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import PageHeader from "@/components/site/PageHeader";
+import { useContent } from "@/components/content/ContentProvider";
 import BlockchainSelector from "@/components/store/BlockchainSelector";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -33,6 +34,7 @@ const UNITS = [
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function CustomOrderPage() {
+  const t = useContent();
   const submit = useServerFn(submitCustomOrder);
   const [form, setForm] = useState({
     quantity: "",
@@ -60,10 +62,10 @@ function CustomOrderPage() {
   async function handleSubmit(event) {
     event.preventDefault();
     setError("");
-    if (!(parsedQuantity > 0)) return setError("Enter the simulation quantity you need.");
-    if (form.name.trim().length < 2) return setError("Enter your full name.");
-    if (!EMAIL_RE.test(form.email.trim())) return setError("Enter a valid email address.");
-    if (!form.blockchain) return setError("Select your preferred blockchain testing environment.");
+    if (!(parsedQuantity > 0)) return setError(t("customOrder.error.quantity"));
+    if (form.name.trim().length < 2) return setError(t("customOrder.error.name"));
+    if (!EMAIL_RE.test(form.email.trim())) return setError(t("customOrder.error.email"));
+    if (!form.blockchain) return setError(t("customOrder.error.blockchain"));
 
     setLoading(true);
     try {
@@ -79,7 +81,7 @@ function CustomOrderPage() {
       });
       setResult(response);
     } catch (err) {
-      setError("We could not submit your request. Please email " + SUPPORT_EMAIL + ".");
+      setError(`${t("customOrder.error.generic")} ${SUPPORT_EMAIL}.`);
     } finally {
       setLoading(false);
     }
@@ -91,26 +93,25 @@ function CustomOrderPage() {
         <div className="mx-auto w-full max-w-2xl px-5 text-center sm:px-8">
           <CheckCircle2 className="mx-auto h-10 w-10 text-primary" />
           <h1 className="mt-6 text-3xl font-semibold text-foreground sm:text-4xl">
-            Request received
+            {t("customOrder.success.title")}
           </h1>
           <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-            Your custom request{" "}
-            <span className="font-mono text-foreground">{result.requestNumber}</span> was sent to{" "}
-            {SUPPORT_EMAIL}. Our engineering team replies within one business day with a scoped
-            proposal.
+            {t("customOrder.success.bodyLead")}{" "}
+            <span className="font-mono text-foreground">{result.requestNumber}</span>{" "}
+            {t("customOrder.success.bodyTail")}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               to="/products"
               className="rounded-md bg-primary px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.18em] text-primary-foreground"
             >
-              Browse products
+              {t("customOrder.success.primary")}
             </Link>
             <Link
               to="/"
               className="rounded-md border border-border px-6 py-3.5 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground hover:border-primary/50"
             >
-              Back home
+              {t("customOrder.success.secondary")}
             </Link>
           </div>
         </div>
@@ -121,9 +122,9 @@ function CustomOrderPage() {
   return (
     <>
       <PageHeader
-        label="Custom Order"
-        title="Request a simulation volume built around your workflow."
-        description="Tell us the quantity, the environment and any additional requirements. Requests are reviewed by our engineering team, not an automated queue."
+        label={t("customOrder.label")}
+        title={t("customOrder.title")}
+        description={t("customOrder.description")}
       />
 
       <section className="py-16 lg:py-20">
@@ -135,7 +136,7 @@ function CustomOrderPage() {
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="quantity" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  Simulation quantity
+                  {t("customOrder.form.quantityLabel")}
                 </Label>
                 <Input
                   id="quantity"
@@ -144,14 +145,14 @@ function CustomOrderPage() {
                   step="1"
                   value={form.quantity}
                   onChange={(event) => update({ quantity: event.target.value })}
-                  placeholder="25"
+                  placeholder={t("customOrder.form.quantityPlaceholder")}
                   className="bg-background/60"
                 />
               </div>
 
               <div className="space-y-1.5">
                 <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  Unit
+                  {t("customOrder.form.unitLabel")}
                 </span>
                 <div className="grid grid-cols-3 gap-2">
                   {UNITS.map((unit) => (
@@ -177,20 +178,20 @@ function CustomOrderPage() {
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="custom-name" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  Full name
+                  {t("customOrder.form.nameLabel")}
                 </Label>
                 <Input
                   id="custom-name"
                   value={form.name}
                   onChange={(event) => update({ name: event.target.value })}
                   autoComplete="name"
-                  placeholder="Jordan Reyes"
+                  placeholder={t("customOrder.form.namePlaceholder")}
                   className="bg-background/60"
                 />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="custom-email" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  Email address
+                  {t("customOrder.form.emailLabel")}
                 </Label>
                 <Input
                   id="custom-email"
@@ -198,7 +199,7 @@ function CustomOrderPage() {
                   value={form.email}
                   onChange={(event) => update({ email: event.target.value })}
                   autoComplete="email"
-                  placeholder="you@company.com"
+                  placeholder={t("customOrder.form.emailPlaceholder")}
                   className="bg-background/60"
                 />
               </div>
@@ -208,20 +209,20 @@ function CustomOrderPage() {
               <BlockchainSelector
                 value={form.blockchain}
                 onChange={(value) => update({ blockchain: value })}
-                label="Preferred testing environment"
+                label={t("customOrder.form.blockchainLabel")}
               />
             </div>
 
             <div className="mt-5 space-y-1.5">
               <Label htmlFor="requirements" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                Additional requirements
+                {t("customOrder.form.requirementsLabel")}
               </Label>
               <Textarea
                 id="requirements"
                 value={form.requirements}
                 onChange={(event) => update({ requirements: event.target.value })}
                 rows={5}
-                placeholder="Contract types, test scenarios, delivery timeline, invoicing requirements."
+                placeholder={t("customOrder.form.requirementsPlaceholder")}
                 className="bg-background/60"
               />
             </div>
@@ -241,18 +242,17 @@ function CustomOrderPage() {
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Sending request
+                  {t("customOrder.form.sending")}
                 </>
               ) : (
                 <>
-                  Submit custom request
+                  {t("customOrder.form.submit")}
                   <ArrowRight className="h-4 w-4" />
                 </>
               )}
             </button>
             <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-              Requests are sent to {SUPPORT_EMAIL}. No cryptocurrency is generated and no real USDT
-              is promised; all quantities refer to simulated test units.
+              {t("customOrder.form.noteLead")} {SUPPORT_EMAIL}. {t("customOrder.form.noteTail")}
             </p>
           </form>
 
@@ -260,40 +260,42 @@ function CustomOrderPage() {
             <div className="rounded-xl border border-border/70 bg-background/60 p-6">
               <div className="flex items-center justify-between">
                 <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-                  Request preview
+                  {t("customOrder.preview.title")}
                 </p>
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
               </div>
               <div aria-live="polite" className="mt-5 space-y-3 font-mono text-[12px]">
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-muted-foreground">quantity</span>
+                  <span className="text-muted-foreground">{t("customOrder.preview.quantity")}</span>
                   <span className="text-foreground">
                     {form.quantity ? `${form.quantity}${form.unit}` : "—"}
                   </span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-muted-foreground">units</span>
+                  <span className="text-muted-foreground">{t("customOrder.preview.units")}</span>
                   <span className="text-primary">
                     {previewUnits ? previewUnits.toLocaleString("en-US") : "—"}
                   </span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-muted-foreground">environment</span>
+                  <span className="text-muted-foreground">{t("customOrder.preview.environment")}</span>
                   <span className="text-foreground">{form.blockchain || "—"}</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-muted-foreground">contact</span>
+                  <span className="text-muted-foreground">{t("customOrder.preview.contact")}</span>
                   <span className="max-w-[60%] truncate text-foreground">{form.email || "—"}</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-muted-foreground">requirements</span>
+                  <span className="text-muted-foreground">{t("customOrder.preview.requirements")}</span>
                   <span className="text-foreground">
-                    {form.requirements.trim() ? "attached" : "none"}
+                    {form.requirements.trim()
+                      ? t("customOrder.preview.attached")
+                      : t("customOrder.preview.none")}
                   </span>
                 </div>
               </div>
               <p className="mt-6 border-t border-border/60 pt-4 text-[12px] leading-relaxed text-muted-foreground">
-                Simulated units only. Not genuine transferable USDT.
+                {t("customOrder.preview.footnote")}
               </p>
             </div>
           </aside>

@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { AlertTriangle, CheckCircle2, Loader2, Mail, MapPin, Send } from "lucide-react";
 import PageHeader from "@/components/site/PageHeader";
+import { useContent } from "@/components/content/ContentProvider";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,7 +26,14 @@ export const Route = createFileRoute("/_site/contact")({
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+const RESPONSES = [
+  { labelKey: "contact.response1.label", valueKey: "contact.response1.value" },
+  { labelKey: "contact.response2.label", valueKey: "contact.response2.value" },
+  { labelKey: "contact.response3.label", valueKey: "contact.response3.value" },
+];
+
 function ContactPage() {
+  const t = useContent();
   const send = useServerFn(submitContactMessage);
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [error, setError] = useState("");
@@ -39,10 +47,10 @@ function ContactPage() {
   async function handleSubmit(event) {
     event.preventDefault();
     setError("");
-    if (form.name.trim().length < 2) return setError("Enter your full name.");
-    if (!EMAIL_RE.test(form.email.trim())) return setError("Enter a valid email address.");
-    if (form.subject.trim().length < 3) return setError("Add a short subject.");
-    if (form.message.trim().length < 10) return setError("Tell us a little more about your inquiry.");
+    if (form.name.trim().length < 2) return setError(t("contact.error.name"));
+    if (!EMAIL_RE.test(form.email.trim())) return setError(t("contact.error.email"));
+    if (form.subject.trim().length < 3) return setError(t("contact.error.subject"));
+    if (form.message.trim().length < 10) return setError(t("contact.error.message"));
 
     setLoading(true);
     try {
@@ -56,7 +64,7 @@ function ContactPage() {
       });
       setSent(true);
     } catch (err) {
-      setError("We could not send your message. Please email " + SUPPORT_EMAIL + ".");
+      setError(`${t("contact.error.generic")} ${SUPPORT_EMAIL}.`);
     } finally {
       setLoading(false);
     }
@@ -65,9 +73,9 @@ function ContactPage() {
   return (
     <>
       <PageHeader
-        label="Contact Us"
-        title="Talk to the team building the tooling."
-        description="Licence questions, simulation scoping, integration partnerships or delivery support — every message reaches our engineering team directly."
+        label={t("contact.label")}
+        title={t("contact.title")}
+        description={t("contact.description")}
       />
 
       <section className="py-16 lg:py-20">
@@ -75,10 +83,10 @@ function ContactPage() {
           <div className="space-y-4">
             <div className="rounded-xl border border-border/70 bg-card/40 p-6">
               <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">
-                Company
+                {t("contact.companyLabel")}
               </p>
               <p className="mt-2 font-heading text-lg text-foreground">
-                ChainCore Technologies LLC
+                {t("contact.companyName")}
               </p>
               <div className="mt-5 space-y-4 border-t border-border/60 pt-5">
                 <a
@@ -90,28 +98,22 @@ function ContactPage() {
                 </a>
                 <p className="flex items-center gap-3 text-sm text-foreground/85">
                   <MapPin className="h-4 w-4 text-primary" />
-                  Remote-first · Serving clients globally
+                  {t("contact.location")}
                 </p>
               </div>
             </div>
 
             <div className="rounded-xl border border-border/70 bg-card/40 p-6">
               <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">
-                Response times
+                {t("contact.responseTitle")}
               </p>
               <dl className="mt-4 space-y-3 text-sm">
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">General inquiries</dt>
-                  <dd className="font-mono text-[12px] text-foreground/85">&lt; 1 business day</dd>
-                </div>
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Licence holders</dt>
-                  <dd className="font-mono text-[12px] text-foreground/85">Priority queue</dd>
-                </div>
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Order issues</dt>
-                  <dd className="font-mono text-[12px] text-foreground/85">Same day</dd>
-                </div>
+                {RESPONSES.map((row) => (
+                  <div key={row.labelKey} className="flex items-center justify-between">
+                    <dt className="text-muted-foreground">{t(row.labelKey)}</dt>
+                    <dd className="font-mono text-[12px] text-foreground/85">{t(row.valueKey)}</dd>
+                  </div>
+                ))}
               </dl>
             </div>
           </div>
@@ -120,10 +122,13 @@ function ContactPage() {
             {sent ? (
               <div className="flex h-full flex-col items-start justify-center py-10">
                 <CheckCircle2 className="h-9 w-9 text-primary" />
-                <h2 className="mt-5 text-2xl font-semibold text-foreground">Message sent</h2>
+                <h2 className="mt-5 text-2xl font-semibold text-foreground">
+                  {t("contact.success.title")}
+                </h2>
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                  Thank you. Your inquiry is with our team and we will reply to{" "}
-                  <span className="text-foreground">{form.email}</span> within one business day.
+                  {t("contact.success.bodyLead")}{" "}
+                  <span className="text-foreground">{form.email}</span>{" "}
+                  {t("contact.success.bodyTail")}
                 </p>
                 <button
                   type="button"
@@ -133,7 +138,7 @@ function ContactPage() {
                   }}
                   className="mt-6 rounded-md border border-border px-5 py-3 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground hover:border-primary/50 hover:text-primary"
                 >
-                  Send another message
+                  {t("contact.success.again")}
                 </button>
               </div>
             ) : (
@@ -141,20 +146,20 @@ function ContactPage() {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label htmlFor="contact-name" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                      Full name
+                      {t("contact.form.nameLabel")}
                     </Label>
                     <Input
                       id="contact-name"
                       value={form.name}
                       onChange={(event) => update({ name: event.target.value })}
                       autoComplete="name"
-                      placeholder="Jordan Reyes"
+                      placeholder={t("contact.form.namePlaceholder")}
                       className="bg-background/60"
                     />
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="contact-email" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                      Email address
+                      {t("contact.form.emailLabel")}
                     </Label>
                     <Input
                       id="contact-email"
@@ -162,7 +167,7 @@ function ContactPage() {
                       value={form.email}
                       onChange={(event) => update({ email: event.target.value })}
                       autoComplete="email"
-                      placeholder="you@company.com"
+                      placeholder={t("contact.form.emailPlaceholder")}
                       className="bg-background/60"
                     />
                   </div>
@@ -170,27 +175,27 @@ function ContactPage() {
 
                 <div className="mt-5 space-y-1.5">
                   <Label htmlFor="contact-subject" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                    Subject
+                    {t("contact.form.subjectLabel")}
                   </Label>
                   <Input
                     id="contact-subject"
                     value={form.subject}
                     onChange={(event) => update({ subject: event.target.value })}
-                    placeholder="Licence scoping for a four-network test suite"
+                    placeholder={t("contact.form.subjectPlaceholder")}
                     className="bg-background/60"
                   />
                 </div>
 
                 <div className="mt-5 space-y-1.5">
                   <Label htmlFor="contact-message" className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                    Message
+                    {t("contact.form.messageLabel")}
                   </Label>
                   <Textarea
                     id="contact-message"
                     value={form.message}
                     onChange={(event) => update({ message: event.target.value })}
                     rows={7}
-                    placeholder="Describe your project, environment and timeline."
+                    placeholder={t("contact.form.messagePlaceholder")}
                     className="bg-background/60"
                   />
                 </div>
@@ -210,11 +215,11 @@ function ContactPage() {
                   {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      Sending
+                      {t("contact.form.sending")}
                     </>
                   ) : (
                     <>
-                      Send message
+                      {t("contact.form.submit")}
                       <Send className="h-4 w-4" />
                     </>
                   )}
