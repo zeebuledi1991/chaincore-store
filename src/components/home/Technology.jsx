@@ -12,7 +12,7 @@ const CAPABILITIES = [
   icon: FlaskConical,
   index: "02",
   title: "The Provided USDT",
-  body: "This usdt will work on any wallet or exchnage ."
+  body: "This usdt will work on any wallet or exchnage.\xA0"
 },
 {
   icon: Network,
