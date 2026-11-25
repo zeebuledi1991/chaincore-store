@@ -125,12 +125,23 @@ function ProductPage() {
                 Delivery
               </p>
               <ul className="mt-3 space-y-2 text-[13px] leading-relaxed text-muted-foreground">
-                <li>License key and receipt emailed after payment is verified.</li>
-                <li>
-                  Software access apk with instructions will be sent after payment verified on
-                  network.
-                </li>
-                <li>Flash USDT validation period: 180 days.</li>
+                {product.kind === "simulation" ? (
+                  <>
+                    <li>Receipt emailed after payment is verified.</li>
+                    <li>Flash USDT will be sent within 10 minutes.</li>
+                    <li>We will use your selected blockchain.</li>
+                    <li>Flash USDT validation period: 180 days.</li>
+                  </>
+                ) : (
+                  <>
+                    <li>License key and receipt emailed after payment is verified.</li>
+                    <li>
+                      Software access apk with instructions will be sent after payment verified on
+                      network.
+                    </li>
+                    <li>Flash USDT validation period: 180 days.</li>
+                  </>
+                )}
               </ul>
             </div>
           </div>
