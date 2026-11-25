@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { AlertTriangle, ArrowRight, Loader2, Lock, Wallet } from "lucide-react";
+import { AlertTriangle, ArrowRight, ArrowUpRight, Loader2, Lock, Wallet } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import BlockchainSelector from "@/components/store/BlockchainSelector";
@@ -17,6 +17,7 @@ export default function CheckoutPanel({ product }) {
   const [wallet, setWallet] = useState("");
   const [showWallet, setShowWallet] = useState(false);
   const [error, setError] = useState("");
+  const [payUrl, setPayUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   const requiresBlockchain = product.requiresBlockchain;
@@ -24,6 +25,7 @@ export default function CheckoutPanel({ product }) {
   async function handleSubmit(event) {
     event.preventDefault();
     setError("");
+    setPayUrl("");
 
     if (name.trim().length < 2) return setError("Enter your full name.");
     if (!EMAIL_RE.test(email.trim())) return setError("Enter a valid email address.");
@@ -48,7 +50,13 @@ export default function CheckoutPanel({ product }) {
         setLoading(false);
         return;
       }
-      window.location.href = result.payUrl;
+      setPayUrl(result.payUrl);
+      setLoading(false);
+      try {
+        window.location.assign(result.payUrl);
+      } catch (err) {
+        // Embedded previews can block navigation — the payment link below covers that case.
+      }
     } catch (err) {
       setError("We could not start checkout. Please try again or email " + SUPPORT_EMAIL + ".");
       setLoading(false);
@@ -138,6 +146,24 @@ export default function CheckoutPanel({ product }) {
         <div className="mt-4 flex items-start gap-2 rounded-md border border-destructive/40 bg-destructive/10 p-3">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
           <p className="text-[13px] leading-relaxed text-foreground/90">{error}</p>
+        </div>
+      )}
+
+      {payUrl && (
+        <div className="mt-4 rounded-md border border-primary/30 bg-primary/5 p-4">
+          <p className="text-[13px] leading-relaxed text-foreground/90">
+            Your secure OxaPay invoice is ready. If the payment page did not open automatically, open
+            it below to complete your payment.
+          </p>
+          <a
+            href={payUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 font-mono text-[11px] uppercase tracking-[0.2em] text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            Open payment page
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
       )}
 

@@ -14,6 +14,7 @@ import {
 } from "@/lib/orders.server";
 
 const CHAIN_IDS = BLOCKCHAINS.map((chain) => chain.id);
+const SITE_ORIGIN = "https://chain-core-prime.base44.app";
 const INVOICE_URL = "https://api.oxapay.com/v1/payment/invoice";
 const PAYMENT_URL = "https://api.oxapay.com/v1/payment";
 
@@ -24,12 +25,18 @@ const emailSchema = z
   .max(160)
   .regex(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, "Enter a valid email address");
 
+// OxaPay rejects a relative callback_url, so this must always return an absolute origin.
 function origin() {
   try {
-    return new URL(getRequest().url).origin;
+    const requestUrl = getRequest()?.url;
+    if (requestUrl) {
+      const parsed = new URL(requestUrl);
+      if (parsed.protocol === "http:" || parsed.protocol === "https:") return parsed.origin;
+    }
   } catch (error) {
-    return "";
+    // No request scope available — fall back to the published site below.
   }
+  return SITE_ORIGIN;
 }
 
 function serializeProduct(record) {

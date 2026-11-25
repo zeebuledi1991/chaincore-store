@@ -14,13 +14,27 @@ export default function ProductCard({ product, index = 0 }) {
       )}
       style={{ animationDelay: `${index * 80}ms` }}
     >
-      <div className="relative aspect-[16/10] overflow-hidden">
+      <div
+        className={cn(
+          "relative overflow-hidden",
+          isLicense ? "min-h-[280px] flex-1" : "aspect-[16/10]"
+        )}
+      >
         <Image
           src={product.image}
           alt={product.name}
-          className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+          fittingType={isLicense ? "fit" : "fill"}
+          className={cn(
+            "h-full w-full transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]",
+            isLicense ? "object-contain p-6" : "object-cover"
+          )}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+        <div
+          className={cn(
+            "absolute inset-0 bg-gradient-to-t to-transparent",
+            isLicense ? "from-card/70 via-transparent" : "from-card via-card/30"
+          )}
+        />
         <div className="absolute left-4 top-4 rounded-full border border-white/15 bg-background/70 px-3 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-foreground/90 backdrop-blur">
           {product.tag}
         </div>
@@ -31,7 +45,7 @@ export default function ProductCard({ product, index = 0 }) {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
+      <div className={cn("flex flex-col p-6", !isLicense && "flex-1")}>
         <div className="flex items-start justify-between gap-4">
           <h3 className="font-heading text-lg font-semibold leading-tight text-foreground">
             {product.name}
