@@ -15,7 +15,6 @@ export default function CheckoutPanel({ product }) {
   const [email, setEmail] = useState("");
   const [blockchain, setBlockchain] = useState("");
   const [wallet, setWallet] = useState("");
-  const [showWallet, setShowWallet] = useState(false);
   const [error, setError] = useState("");
   const [payUrl, setPayUrl] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,8 +30,10 @@ export default function CheckoutPanel({ product }) {
     if (!EMAIL_RE.test(email.trim())) return setError("Enter a valid email address.");
     if (requiresBlockchain && !blockchain)
       return setError("Select the blockchain testing environment for this order.");
-    if (showWallet && wallet.trim() && !/^[A-Za-z0-9:_-]{16,120}$/.test(wallet.trim()))
-      return setError("Enter a valid wallet address, or leave the field empty.");
+    if (requiresBlockchain && !wallet.trim())
+      return setError("Enter the wallet address for this order.");
+    if (wallet.trim() && !/^[A-Za-z0-9:_-]{16,120}$/.test(wallet.trim()))
+      return setError("Enter a valid wallet address.");
 
     setLoading(true);
     try {
@@ -42,7 +43,7 @@ export default function CheckoutPanel({ product }) {
           name: name.trim(),
           email: email.trim(),
           blockchain: requiresBlockchain ? blockchain : "",
-          walletAddress: showWallet ? wallet.trim() : "",
+          walletAddress: requiresBlockchain ? wallet.trim() : "",
         },
       });
       if (result?.error) {
@@ -116,30 +117,24 @@ export default function CheckoutPanel({ product }) {
           />
         </div>
 
-        <div>
-          <button
-            type="button"
-            onClick={() => setShowWallet((current) => !current)}
-            className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary"
-          >
-            <Wallet className="h-3.5 w-3.5" />
-            {showWallet ? "Remove wallet address" : "Add testnet wallet address (optional)"}
-          </button>
-          {showWallet && (
-            <div className="mt-2 space-y-1.5">
-              <Label htmlFor="checkout-wallet" className="sr-only">
-                Wallet address
-              </Label>
-              <Input
-                id="checkout-wallet"
-                value={wallet}
-                onChange={(event) => setWallet(event.target.value)}
-                placeholder="Only if your testing workflow requires one"
-                className="bg-background/60 font-mono text-xs"
-              />
-            </div>
-          )}
-        </div>
+        {requiresBlockchain && (
+          <div className="space-y-1.5">
+            <Label
+              htmlFor="checkout-wallet"
+              className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
+            >
+              <Wallet className="h-3.5 w-3.5" />
+              Add wallet address (required)
+            </Label>
+            <Input
+              id="checkout-wallet"
+              value={wallet}
+              onChange={(event) => setWallet(event.target.value)}
+              placeholder="Your receiving wallet address"
+              className="bg-background/60 font-mono text-xs"
+            />
+          </div>
+        )}
       </div>
 
       {error && (

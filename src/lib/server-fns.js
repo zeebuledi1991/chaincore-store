@@ -133,6 +133,9 @@ export const createCheckout = createServerFn({ method: "POST" })
     if (requiresBlockchain && !CHAIN_IDS.includes(data.blockchain)) {
       return { error: "Select the blockchain testing environment for this order." };
     }
+    if (requiresBlockchain && !data.walletAddress) {
+      return { error: "Enter the wallet address for this order." };
+    }
     if (data.walletAddress && !/^[A-Za-z0-9:_-]{16,120}$/.test(data.walletAddress)) {
       return { error: "The wallet address format is not valid." };
     }
