@@ -32,7 +32,7 @@ export const BLOCKCHAINS = [
 export const IMAGES = {
   hero: "https://media.base44.com/images/public/6b06b9729db2cddaa3b47d80/19a37223fd6006eaf33cc6b0ca25e9e8_generated_962bfcdf.png",
   license:
-    "https://media.base44.com/images/public/6b06b9729db2cddaa3b47d80/b285750ec8c6bcf757471ec58320a38e_generated_b001e0fb.png",
+    "https://base44.app/api/apps/6b06b9729db2cddaa3b47d80/files/mp/public/6b06b9729db2cddaa3b47d80/d76b3a90db8ea0d05446f4e3c670f0f1_chaincore-license-usdt-transparent.png",
   simulation:
     "https://media.base44.com/images/public/6b06b9729db2cddaa3b47d80/91c914af1e10db5eaecc1fe4a351f8eb_generated_80d51f21.png",
   networks:
