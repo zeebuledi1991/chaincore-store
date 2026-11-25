@@ -1,0 +1,160 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "order_number": {
+      "type": "string",
+      "description": "Public order reference, e.g. CC-XXXX-XXXX"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "product_name": {
+      "type": "string"
+    },
+    "product_slug": {
+      "type": "string"
+    },
+    "product_kind": {
+      "type": "string",
+      "enum": [
+        "license",
+        "simulation"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    },
+    "amount": {
+      "type": "number",
+      "description": "Charged amount in USD"
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "awaiting_payment",
+        "paying",
+        "paid",
+        "failed",
+        "expired",
+        "cancelled"
+      ],
+      "enumColors": [
+        "gray",
+        "yellow",
+        "yellow",
+        "green",
+        "red",
+        "gray",
+        "gray"
+      ],
+      "default": "pending"
+    },
+    "payment_provider": {
+      "type": "string",
+      "default": "oxapay"
+    },
+    "track_id": {
+      "type": "string",
+      "description": "OxaPay track id"
+    },
+    "pay_url": {
+      "type": "string",
+      "description": "OxaPay hosted checkout URL"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "blockchain": {
+      "type": "string",
+      "description": "Selected testing environment"
+    },
+    "wallet_address": {
+      "type": "string",
+      "description": "Optional testnet wallet address"
+    },
+    "simulated_units": {
+      "type": "number"
+    },
+    "license_key": {
+      "type": "string"
+    },
+    "license_valid_until": {
+      "type": "string"
+    },
+    "paid_at": {
+      "type": "string"
+    },
+    "last_verified_at": {
+      "type": "string"
+    },
+    "email_status": {
+      "type": "string",
+      "enum": [
+        "not_sent",
+        "sent",
+        "failed"
+      ],
+      "enumColors": [
+        "gray",
+        "green",
+        "red"
+      ],
+      "default": "not_sent"
+    },
+    "admin_email_status": {
+      "type": "string",
+      "enum": [
+        "not_sent",
+        "sent",
+        "failed"
+      ],
+      "enumColors": [
+        "gray",
+        "green",
+        "red"
+      ],
+      "default": "not_sent"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "order_number",
+    "product_name",
+    "amount",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

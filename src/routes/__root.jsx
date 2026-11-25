@@ -12,11 +12,21 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Base44 App" },
-      { name: "description", content: "A full-stack Base44 app built with TanStack Start." },
+      { title: "ChainCore Technologies LLC — Powering the Future of Digital Innovation" },
+      {
+        name: "description",
+        content:
+          "ChainCore Technologies LLC builds blockchain software, testing and simulation tools for BNB Chain, Ethereum, Solana and TRON.",
+      },
+      { name: "theme-color", content: "#05070A" },
     ],
-    // No icon link: the platform adds the app's logo when serving.
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
       { rel: "stylesheet", href: appCss },
     ],
   }),
@@ -38,7 +48,7 @@ function RootComponent() {
 // The document. There is no index.html: the server renders <html> from here.
 function RootDocument({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>

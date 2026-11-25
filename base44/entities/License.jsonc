@@ -1,0 +1,88 @@
+{
+  "name": "License",
+  "type": "object",
+  "properties": {
+    "license_key": {
+      "type": "string"
+    },
+    "order_number": {
+      "type": "string"
+    },
+    "order_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "product_name": {
+      "type": "string"
+    },
+    "license_type": {
+      "type": "string",
+      "enum": [
+        "software_license",
+        "simulation_package"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    },
+    "blockchain": {
+      "type": "string"
+    },
+    "valid_from": {
+      "type": "string"
+    },
+    "valid_until": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "expired",
+        "revoked"
+      ],
+      "enumColors": [
+        "green",
+        "gray",
+        "red"
+      ],
+      "default": "active"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "license_key",
+    "customer_email",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

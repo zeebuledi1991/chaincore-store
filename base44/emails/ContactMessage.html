@@ -1,0 +1,31 @@
+<mjml>
+  <mj-head>
+    <mj-title>Website inquiry: {{subject}}</mj-title>
+    <mj-preview>Message from {{customer_name}}</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="Inter, Helvetica, Arial, sans-serif" />
+      <mj-section background-color="#0B1220" padding="0 36px" />
+      <mj-text color="#E2E8F0" font-size="15px" line-height="1.6" padding="0" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body background-color="#05070A">
+    <mj-section padding="28px 36px">
+      <mj-column>
+        <mj-text color="#00F0FF" font-size="11px" letter-spacing="3px" font-weight="700">CHAINCORE CONTACT FORM</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 36px 8px">
+      <mj-column>
+        <mj-text font-size="30px" line-height="1.15" font-weight="700" color="#FFFFFF">{{subject}}</mj-text>
+        <mj-text color="#94A3B8" padding="10px 0 0">From {{customer_name}} ({{customer_email}}). Reply directly to this address.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="24px 36px 32px">
+      <mj-column background-color="#0F172A" border-radius="6px" padding="24px">
+        <mj-text color="#E2E8F0" padding="0">{{message}}</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

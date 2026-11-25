@@ -1,0 +1,92 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Product name shown on the store"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL slug, e.g. complete-software-license"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "license",
+        "simulation"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ],
+      "default": "simulation",
+      "description": "Software licence or simulation package"
+    },
+    "price": {
+      "type": "number",
+      "description": "Price in USD"
+    },
+    "price_label": {
+      "type": "string",
+      "description": "Display price, e.g. $10,000"
+    },
+    "tag": {
+      "type": "string",
+      "description": "Short badge shown on the card"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Short product description"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Feature bullets"
+    },
+    "simulated_units": {
+      "type": "number",
+      "description": "Simulated USDT-equivalent test units (simulation packages only)"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "requires_blockchain": {
+      "type": "boolean",
+      "default": true
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "sort_order": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "name",
+    "slug",
+    "price"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
