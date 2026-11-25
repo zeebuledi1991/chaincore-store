@@ -47,7 +47,7 @@ export default function ProductCard({ product, index = 0 }) {
 
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{product.summary}</p>
 
-        {product.simulatedUnits && (
+        {product.simulatedUnits > 0 && (
           <div className="mt-5 flex items-center gap-2 rounded-md border border-border/70 bg-background/40 px-3 py-2.5">
             <Layers className="h-3.5 w-3.5 text-primary" />
             <span className="font-mono text-[11px] tracking-[0.08em] text-foreground/85">
