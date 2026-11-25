@@ -39,7 +39,7 @@ export default function Hero() {
             .
           </h1>
 
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">Discover innovative blockchain software Flash USDT, and multi-network development tools — engineered for teams that need verifiable behaviour before a single transaction reaches mainnet.
+          <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">Flash USDT Sender is an advanced blockchain simulation and testing solution designed for efficient digital asset transaction testing. Supporting BNB Chain, Ethereum, TRON, and Solana, it offers a streamlined, user-friendly experience across multiple blockchain environments. Built by ChainCore Technologies to make blockchain testing smarter, faster, and more accessible.
 
 
 
