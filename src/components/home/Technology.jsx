@@ -11,7 +11,7 @@ const CAPABILITIES = [
 {
   icon: FlaskConical,
   index: "02",
-  title: "The Pro",
+  title: "The Provided USDT",
   body: "Deterministic harnesses that replay network conditions, token flows and edge cases before real value is ever exposed."
 },
 {
