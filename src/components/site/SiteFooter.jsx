@@ -103,9 +103,9 @@ export default function SiteFooter() {
               Admin
             </Link>
           </div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground hidden">
-            Simulated units are test values · Not transferable USDT
-          </p>
+          
+
+          
         </div>
       </div>
     </footer>);
