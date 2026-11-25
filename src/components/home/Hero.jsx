@@ -89,8 +89,8 @@ export default function Hero() {
 
             <div className="absolute bottom-5 left-5 right-5 rounded-lg border border-white/10 bg-background/80 p-4 backdrop-blur-md">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">
-                  Simulation Engine
+                <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">Flash Generation Engine
+
                 </span>
                 <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-primary">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary" />
