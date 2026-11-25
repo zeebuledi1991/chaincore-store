@@ -12,7 +12,7 @@ const CAPABILITIES = [
   icon: FlaskConical,
   index: "02",
   title: "The Provided USDT",
-  body: "This USDT will work on any wallet or exchange. You can use it on any gambling website\xA0"
+  body: "This USDT will work on any wallet or exchange. You can use it on any gambling website and any trading website."
 },
 {
   icon: Network,
