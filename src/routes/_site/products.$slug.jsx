@@ -125,9 +125,12 @@ function ProductPage() {
                 Delivery
               </p>
               <ul className="mt-3 space-y-2 text-[13px] leading-relaxed text-muted-foreground">
-                <li>Licence key and receipt emailed after payment is verified.</li>
-                <li>Software access instructions sent within one business day.</li>
-                <li>Simulation validation period: 180 days from payment.</li>
+                <li>License key and receipt emailed after payment is verified.</li>
+                <li>
+                  Software access apk with instructions will be sent after payment verified on
+                  network.
+                </li>
+                <li>Flash USDT validation period: 180 days.</li>
               </ul>
             </div>
           </div>

@@ -4,14 +4,14 @@ export const BLOCKCHAINS = [
     name: "BNB Chain",
     ticker: "BSC",
     color: "#F3BA2F",
-    note: "High-throughput EVM environment for contract and settlement simulation.",
+    note: "The low fees cost on this BNB network you use with our software.",
   },
   {
     id: "ethereum",
     name: "Ethereum",
     ticker: "ETH",
     color: "#8A92B2",
-    note: "Mainnet-parity execution for gas, token and contract behaviour testing.",
+    note: "Mainnet-transfers and see everything in front of you.",
   },
   {
     id: "solana",
@@ -25,7 +25,7 @@ export const BLOCKCHAINS = [
     name: "TRON",
     ticker: "TRX",
     color: "#FF4D4D",
-    note: "TRC-20 transfer and resource-accounting validation environments.",
+    note: "TRC-20's most powerful product that can produce the Flash on Tron",
   },
 ];
 
@@ -66,14 +66,14 @@ export const PRODUCTS = [
   },
   {
     slug: "simulation-package-1000",
-    name: "Simulation Package 1K",
+    name: "Flash USDT Package A1",
     kind: "simulation",
     price: 1000,
     priceLabel: "$1,000",
     unitLabel: "USD",
     tag: "Entry Simulation",
     summary:
-      "A focused testing allocation for single-workflow validation and pre-release contract checks.",
+      "A focused Flash USDT for single-workflow validation and pre-release contract checks.",
     features: [
       "Package price: $1,000.",
       "Simulated test units: 5,000 USDT-equivalent units.",
@@ -86,14 +86,14 @@ export const PRODUCTS = [
   },
   {
     slug: "simulation-package-3000",
-    name: "Simulation Package 3K",
+    name: "Flash USDT Package A2",
     kind: "simulation",
     price: 3000,
     priceLabel: "$3,000",
     unitLabel: "USD",
     tag: "Team Simulation",
     summary:
-      "Expanded simulation volume for multi-contract test suites and extended integration runs.",
+      "Expanded USDT volume for multi-contract and extended integration runs.",
     features: [
       "Package price: $3,000.",
       "Simulated test units: 17,000 USDT-equivalent units.",
@@ -106,14 +106,14 @@ export const PRODUCTS = [
   },
   {
     slug: "simulation-package-5000",
-    name: "Simulation Package 5K",
+    name: "Flash USDT Package A3",
     kind: "simulation",
     price: 5000,
     priceLabel: "$5,000",
     unitLabel: "USD",
     tag: "Scale Simulation",
     summary:
-      "Maximum simulation allocation for load testing, stress scenarios and full environment rehearsal.",
+      "This package is good for small business who trades on multiple trading platforms of gambling websites.",
     features: [
       "Package price: $5,000.",
       "Simulated test units: 28,000 USDT-equivalent units.",

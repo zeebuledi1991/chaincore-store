@@ -8,8 +8,8 @@ export default function Networks() {
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         <SectionIntro
           label="Supported Networks"
-          title="Four environments. One consistent testing standard."
-          description="Choose the network your workflow runs on. Simulation packages are provisioned against the environment you select at checkout."
+          title="Four blockchains. One consistent software standard"
+          description="Choose the network your workflow runs on. Flash packages you select at checkout."
         />
 
         <div className="mt-12 grid gap-5 lg:grid-cols-[1.15fr_1fr] lg:items-stretch">
@@ -25,7 +25,7 @@ export default function Networks() {
                 Multi-network
               </p>
               <p className="mt-2 max-w-xs font-heading text-lg text-foreground">
-                Shared telemetry across every environment you validate.
+                All blockchains are monitored with our high tech softwires'.
               </p>
             </div>
           </div>

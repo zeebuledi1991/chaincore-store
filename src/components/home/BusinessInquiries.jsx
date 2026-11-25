@@ -24,7 +24,7 @@ export default function BusinessInquiries() {
                 Custom volumes, enterprise licensing and integration partnerships.
               </h2>
               <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted-foreground">
-                Tell us your simulation quantity, target network and delivery requirements. Our
+                Tell us your Flash quantity, target network and delivery requirements. Our
                 engineering team will respond with a scoped proposal.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">

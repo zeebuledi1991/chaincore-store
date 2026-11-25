@@ -37,8 +37,8 @@ function ProductsPage() {
     <>
       <PageHeader
         label="Product Store"
-        title="Software licences and simulation packages."
-        description="Every price below is the final price in USD. Licences are delivered by email after payment is verified; simulation packages are provisioned against the environment you select.">
+        title="Software licenses and Flash USDT packages."
+        description="Every price below is the final price in USD. Licenses are delivered by email after payment is verified; Flash packages will be provided on the blockchain you select.">
         
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           <span className="flex items-center gap-2">

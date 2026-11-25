@@ -23,8 +23,8 @@ export default function SiteFooter() {
           <div>
             <Brand />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Powering the Future of Digital Innovation. Blockchain software, testing and
-              simulation tooling across BNB Chain, Ethereum, Solana and TRON.
+              Powering the Future of Digital Innovation. Blockchain software, Flash USDT
+              tooling across BNB Chain, Ethereum, Solana and TRON.
             </p>
             <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-border/70 px-3 py-1.5">
               <span className="relative flex h-1.5 w-1.5">

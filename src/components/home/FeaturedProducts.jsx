@@ -12,8 +12,8 @@ export default function FeaturedProducts({ products }) {
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <SectionIntro
             label="Featured Products"
-            title="Licences and simulation packages, priced without ambiguity."
-            description="A complete software licence for production teams, plus three simulation tiers for controlled, environment-specific testing."
+            title="Licenses and Flash USDT packages, priced without ambiguity."
+            description="A complete software license for production for team's or individual"
           />
           <Link
             to="/products"
