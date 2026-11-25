@@ -109,28 +109,28 @@ function ProductsPage() {
             )}
           </div>
 
-          <div className="mt-10 flex flex-col gap-4 rounded-xl border border-border/70 bg-card/40 p-6 sm:flex-row sm:items-start hidden">
-            <ShieldAlert className="h-5 w-5 shrink-0 text-primary" />
-            <div>
-              <h2 className="font-heading text-base font-semibold text-foreground">
-                Simulation disclosure
-              </h2>
-              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-                Simulation packages contain simulated test units only. They are not genuine,
-                transferable USDT and carry no monetary value. ChainCore Technologies LLC does not
-                generate cryptocurrency, does not promise real USDT delivery, and does not operate
-                as an exchange. Units exist solely to exercise testing and simulation workflows in
-                the environment you select.
-              </p>
-              <Link
-                to="/custom-order"
-                className="mt-4 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-primary hover:underline">
-                
-                Need a different volume? Submit a custom request
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-          </div>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
         </div>
       </section>
     </>);
