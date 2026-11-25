@@ -3,17 +3,17 @@ import Brand from "@/components/site/Brand";
 import { SUPPORT_EMAIL } from "@/lib/catalog";
 
 const NAVIGATE = [
-  { label: "Home", to: "/" },
-  { label: "Products", to: "/products" },
-  { label: "About Us", to: "/about" },
-  { label: "Contact Us", to: "/contact" },
-  { label: "Custom Order", to: "/custom-order" },
-];
+{ label: "Home", to: "/" },
+{ label: "Products", to: "/products" },
+{ label: "About Us", to: "/about" },
+{ label: "Contact Us", to: "/contact" },
+{ label: "Custom Order", to: "/custom-order" }];
+
 
 const LEGAL = [
-  { label: "Privacy Policy", to: "/privacy-policy" },
-  { label: "Returns Policy", to: "/returns-policy" },
-];
+{ label: "Privacy Policy", to: "/privacy-policy" },
+{ label: "Returns Policy", to: "/returns-policy" }];
+
 
 export default function SiteFooter() {
   return (
@@ -42,16 +42,16 @@ export default function SiteFooter() {
               Navigate
             </h2>
             <ul className="mt-5 space-y-3">
-              {NAVIGATE.map((item) => (
-                <li key={item.to}>
+              {NAVIGATE.map((item) =>
+              <li key={item.to}>
                   <Link
-                    to={item.to}
-                    className="text-sm text-foreground/80 transition-colors hover:text-primary"
-                  >
+                  to={item.to}
+                  className="text-sm text-foreground/80 transition-colors hover:text-primary">
+                  
                     {item.label}
                   </Link>
                 </li>
-              ))}
+              )}
             </ul>
           </nav>
 
@@ -60,16 +60,16 @@ export default function SiteFooter() {
               Policies
             </h2>
             <ul className="mt-5 space-y-3">
-              {LEGAL.map((item) => (
-                <li key={item.to}>
+              {LEGAL.map((item) =>
+              <li key={item.to}>
                   <Link
-                    to={item.to}
-                    className="text-sm text-foreground/80 transition-colors hover:text-primary"
-                  >
+                  to={item.to}
+                  className="text-sm text-foreground/80 transition-colors hover:text-primary">
+                  
                     {item.label}
                   </Link>
                 </li>
-              ))}
+              )}
             </ul>
           </nav>
 
@@ -79,8 +79,8 @@ export default function SiteFooter() {
             </h2>
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
-              className="mt-5 block font-heading text-lg text-foreground transition-colors hover:text-primary"
-            >
+              className="mt-5 block font-heading text-lg text-foreground transition-colors hover:text-primary">
+              
               {SUPPORT_EMAIL}
             </a>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -98,16 +98,16 @@ export default function SiteFooter() {
             </p>
             <Link
               to="/admin"
-              className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary"
-            >
+              className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary">
+              
               Admin
             </Link>
           </div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground hidden">
             Simulated units are test values · Not transferable USDT
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
+
 }
