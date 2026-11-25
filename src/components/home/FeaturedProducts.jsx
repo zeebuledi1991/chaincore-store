@@ -24,14 +24,9 @@ export default function FeaturedProducts({ products }) {
           </Link>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="sm:col-span-2 lg:col-span-1 lg:row-span-2">
-            <div className="h-full [&>article]:h-full">
-              <ProductCard product={catalog[0]} index={0} />
-            </div>
-          </div>
-          {catalog.slice(1).map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index + 1} />
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {catalog.map((product, index) => (
+            <ProductCard key={product.slug} product={product} index={index} />
           ))}
         </div>
       </div>
