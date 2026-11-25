@@ -18,11 +18,8 @@ export default function ProductCard({ product, index = 0 }) {
         <Image
           src={product.image}
           alt={product.name}
-          fittingType={isLicense ? "fit" : "fill"}
-          className={cn(
-            "h-full w-full transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]",
-            isLicense ? "object-contain p-5" : "object-cover"
-          )}
+          fittingType="fit"
+          className="h-full w-full object-contain p-5 transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
         <div className="absolute left-4 top-4 rounded-full border border-white/15 bg-background/70 px-3 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-foreground/90 backdrop-blur">

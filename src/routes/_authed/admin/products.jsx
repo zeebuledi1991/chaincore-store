@@ -11,7 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Image } from "@/components/ui/image";
 import { formatUsd } from "@/lib/catalog";
+import { Loader2, Upload } from "lucide-react";
 
 export const Route = createFileRoute("/_authed/admin/products")({
   component: AdminProducts,
@@ -32,7 +34,24 @@ function AdminProducts() {
   const { items, loading, refresh } = useEntityList("Product", {}, { sort: "sort_order", limit: 50 });
   const [draft, setDraft] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+
+  async function uploadImage(event) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    setUploading(true);
+    setError("");
+    try {
+      const { file_url } = await base44.integrations.Core.UploadPublicFile({ file });
+      setDraft((current) => (current ? { ...current, image_url: file_url } : current));
+    } catch (err) {
+      setError("Could not upload this image.");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   function openEditor(product) {
     setError("");
@@ -207,15 +226,49 @@ function AdminProducts() {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <Label className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Image URL
+                  Product image
                 </Label>
-                <Input
-                  value={draft.image_url}
-                  onChange={(event) => setDraft({ ...draft, image_url: event.target.value })}
-                  className="bg-background/60 font-mono text-xs"
-                />
+                <div className="flex items-start gap-4">
+                  <div className="h-20 w-24 shrink-0 overflow-hidden rounded-md border border-border/70 bg-background/60">
+                    {draft.image_url ? (
+                      <Image
+                        src={draft.image_url}
+                        alt={draft.name || "Product"}
+                        fittingType="fit"
+                        className="h-full w-full object-contain"
+                      />
+                    ) : (
+                      <span className="flex h-full w-full items-center justify-center font-mono text-[8px] uppercase tracking-[0.14em] text-muted-foreground">
+                        No image
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex-1 space-y-2">
+                    <label className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-border px-4 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-foreground hover:border-primary/50 hover:text-primary">
+                      {uploading ? (
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      ) : (
+                        <Upload className="h-3.5 w-3.5" />
+                      )}
+                      {uploading ? "Uploading" : "Upload image"}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={uploadImage}
+                        disabled={uploading}
+                        className="hidden"
+                      />
+                    </label>
+                    <Input
+                      value={draft.image_url}
+                      onChange={(event) => setDraft({ ...draft, image_url: event.target.value })}
+                      placeholder="or paste an image URL"
+                      className="bg-background/60 font-mono text-[11px]"
+                    />
+                  </div>
+                </div>
               </div>
 
               <label className="flex items-center gap-3 rounded-md border border-border/70 bg-background/40 px-4 py-3">

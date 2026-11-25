@@ -52,12 +52,8 @@ function ProductPage() {
               <Image
                 src={product.image}
                 alt={product.name}
-                fittingType={product.kind === "license" ? "fit" : "fill"}
-                className={
-                  product.kind === "license"
-                    ? "aspect-[16/10] w-full bg-card/40 object-contain p-6"
-                    : "aspect-[16/10] w-full object-cover"
-                }
+                fittingType="fit"
+                className="aspect-[16/10] w-full bg-card/40 object-contain p-6"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent" />
               <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-background/70 px-3 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-foreground/90 backdrop-blur">
