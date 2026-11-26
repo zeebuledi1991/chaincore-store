@@ -2,7 +2,6 @@ import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { secrets } from "base44:runtime";
 import { z } from "zod";
-import { requireUser } from "@/lib/auth-middleware";
 import { BLOCKCHAINS, SUPPORT_EMAIL, formatUsd } from "@/lib/catalog";
 import {
   ADMIN_EMAIL,
@@ -10,7 +9,6 @@ import {
   confirmOrder,
   generateOrderNumber,
   generateRequestNumber,
-  resendOrderEmails,
 } from "@/lib/orders.server";
 
 const CHAIN_IDS = BLOCKCHAINS.map((chain) => chain.id);
@@ -378,64 +376,4 @@ export const submitContactMessage = createServerFn({ method: "POST" })
     }
 
     return { success: true, notified };
-  });
-
-async function assertAdmin(context) {
-  if (context.user?.role !== "admin") {
-    throw Object.assign(new Error("Administrator access required"), { status: 403 });
-  }
-}
-
-export const adminVerifyOrder = createServerFn({ method: "POST" })
-  .middleware([requireUser])
-  .validator(z.object({ orderId: z.string().trim().min(6).max(64) }))
-  .handler(async ({ data, context }) => {
-    await assertAdmin(context);
-    const base44 = context.getBase44().asServiceRole;
-    const apiKey = secrets.get("OXAPAY_API_KEY");
-    let order = await base44.entities.Order.get(data.orderId);
-    if (!apiKey) return { error: "OxaPay API key is not configured.", status: order?.status };
-    if (!order?.track_id) return { error: "This order has no OxaPay reference yet.", status: order?.status };
-
-    const remote = await fetchOxaPayStatus(apiKey, order.track_id);
-    if (!remote) return { error: "OxaPay did not return this invoice.", status: order.status };
-    const remoteStatus = String(remote.status || "").toLowerCase();
-
-    if (remoteStatus === "paid") {
-      order = await confirmOrder(base44, order, {
-        origin: origin(),
-        paidAmount: remote.amount,
-        note: `Manually verified by administrator (track ${order.track_id}).`,
-      });
-      return { status: order.status, verified: true };
-    }
-
-    const mapped =
-      remoteStatus === "paying"
-        ? "paying"
-        : remoteStatus === "expired"
-          ? "expired"
-          : remoteStatus === "canceled" || remoteStatus === "cancelled"
-            ? "cancelled"
-            : remoteStatus === "failed"
-              ? "failed"
-              : "awaiting_payment";
-    order = await base44.entities.Order.update(order.id, {
-      status: mapped,
-      last_verified_at: new Date().toISOString(),
-    });
-    return { status: order.status, verified: false, remoteStatus };
-  });
-
-export const adminResendOrderEmail = createServerFn({ method: "POST" })
-  .middleware([requireUser])
-  .validator(z.object({ orderId: z.string().trim().min(6).max(64) }))
-  .handler(async ({ data, context }) => {
-    await assertAdmin(context);
-    const base44 = context.getBase44().asServiceRole;
-    const order = await base44.entities.Order.get(data.orderId);
-    if (!order) return { error: "Order not found." };
-    if (order.status !== "paid") return { error: "Only paid orders can be re-sent." };
-    const result = await resendOrderEmails(base44, order, origin());
-    return { ...result };
   });

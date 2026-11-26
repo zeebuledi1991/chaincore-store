@@ -130,39 +130,3 @@ export async function confirmOrder(base44, order, { origin = "", paidAmount = nu
     admin_email_status: adminStatus,
   });
 }
-
-export async function resendOrderEmails(base44, order, origin = "") {
-  if (!order || order.status !== "paid") return { emailStatus: "not_sent", adminStatus: "not_sent" };
-  const variables = {
-    customer_name: order.customer_name || "there",
-    order_number: order.order_number,
-    product_name: order.product_name,
-    amount: `$${Number(order.amount).toLocaleString("en-US")} USD`,
-    license_key: order.license_key || "",
-    license_valid_until: (order.license_valid_until || "").slice(0, 10),
-    blockchain: chainLabel(order.blockchain) || "All supported networks",
-    units: order.simulated_units
-      ? `${Number(order.simulated_units).toLocaleString("en-US")} simulated USDT-equivalent units`
-      : "Full software licence",
-    order_url: origin
-      ? `${origin}/order/${order.id}?t=${await ensureOrderToken(base44, order)}`
-      : "",
-    support_email: SUPPORT_EMAIL,
-    customer_email: order.customer_email || "",
-  };
-  const emailStatus = await sendTemplate(base44, {
-    to: order.customer_email,
-    template_name: "OrderReceipt",
-    variables,
-  });
-  const adminStatus = await sendTemplate(base44, {
-    to: ADMIN_EMAIL,
-    template_name: "AdminOrderAlert",
-    variables,
-  });
-  await base44.entities.Order.update(order.id, {
-    email_status: emailStatus,
-    admin_email_status: adminStatus,
-  });
-  return { emailStatus, adminStatus };
-}
