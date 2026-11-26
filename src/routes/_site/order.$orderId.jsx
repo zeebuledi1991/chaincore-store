@@ -7,6 +7,7 @@ import { useContent } from "@/components/content/ContentProvider";
 import { SUPPORT_EMAIL } from "@/lib/catalog";
 
 export const Route = createFileRoute("/_site/order/$orderId")({
+  validateSearch: (search) => ({ t: search.t }),
   head: () => ({
     meta: [
       { title: "Order status — ChainCore Technologies LLC" },
@@ -22,6 +23,7 @@ const FINAL = ["paid", "failed", "expired", "cancelled"];
 function OrderStatusPage() {
   const t = useContent();
   const { orderId } = Route.useParams();
+  const token = Route.useSearch().t || "";
   const fetchStatus = useServerFn(getOrderStatus);
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -32,8 +34,13 @@ function OrderStatusPage() {
     let active = true;
 
     async function load() {
+      if (!token) {
+        setOrder({ found: false });
+        setLoading(false);
+        return;
+      }
       try {
-        const result = await fetchStatus({ data: { orderId } });
+        const result = await fetchStatus({ data: { orderId, token } });
         if (!active) return;
         setOrder(result);
         setLoading(false);
@@ -52,7 +59,7 @@ function OrderStatusPage() {
       active = false;
       if (timer.current) clearTimeout(timer.current);
     };
-  }, [orderId, fetchStatus]);
+  }, [orderId, token, fetchStatus]);
 
   async function copyKey() {
     if (!order?.licenseKey) return;

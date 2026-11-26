@@ -26,6 +26,18 @@ export function generateRequestNumber() {
   return `CR-${Date.now().toString(36).toUpperCase()}-${randomChunk(4)}`;
 }
 
+export function newOrderToken() {
+  return crypto.randomUUID().replace(/-/g, "");
+}
+
+// Orders created before access tokens existed get one the first time it is needed.
+async function ensureOrderToken(base44, order) {
+  if (order.access_token) return order.access_token;
+  const token = newOrderToken();
+  await base44.entities.Order.update(order.id, { access_token: token });
+  return token;
+}
+
 function addDays(date, days) {
   const next = new Date(date);
   next.setUTCDate(next.getUTCDate() + days);
@@ -82,7 +94,9 @@ export async function confirmOrder(base44, order, { origin = "", paidAmount = nu
     status: "active",
   });
 
-  const orderUrl = origin ? `${origin}/order/${order.id}` : "";
+  const orderUrl = origin
+    ? `${origin}/order/${order.id}?t=${await ensureOrderToken(base44, order)}`
+    : "";
   const variables = {
     customer_name: order.customer_name || "there",
     order_number: order.order_number,
@@ -130,7 +144,9 @@ export async function resendOrderEmails(base44, order, origin = "") {
     units: order.simulated_units
       ? `${Number(order.simulated_units).toLocaleString("en-US")} simulated USDT-equivalent units`
       : "Full software licence",
-    order_url: origin ? `${origin}/order/${order.id}` : "",
+    order_url: origin
+      ? `${origin}/order/${order.id}?t=${await ensureOrderToken(base44, order)}`
+      : "",
     support_email: SUPPORT_EMAIL,
     customer_email: order.customer_email || "",
   };

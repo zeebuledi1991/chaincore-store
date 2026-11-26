@@ -64,6 +64,23 @@ function maskEmail(value) {
   return `${name.slice(0, 1)}${"*".repeat(Math.max(name.length - 1, 2))}@${domain}`;
 }
 
+// An order id is not a credential: every order also carries a random secret that
+// the buyer's order link contains and that getOrderStatus requires.
+function newOrderToken() {
+  return crypto.randomUUID().replace(/-/g, "");
+}
+
+function sameSecret(a, b) {
+  const left = String(a || "");
+  const right = String(b || "");
+  if (!left || left.length !== right.length) return false;
+  let diff = 0;
+  for (let index = 0; index < left.length; index += 1) {
+    diff |= left.charCodeAt(index) ^ right.charCodeAt(index);
+  }
+  return diff === 0;
+}
+
 async function fetchOxaPayInvoice(apiKey, payload) {
   const response = await fetch(INVOICE_URL, {
     method: "POST",
@@ -140,24 +157,10 @@ export const createCheckout = createServerFn({ method: "POST" })
       return { error: "The wallet address format is not valid." };
     }
 
-    const recentPage = await base44.entities.Order.filter(
-      { customer_email: data.email.toLowerCase(), product_slug: product.slug, status: "awaiting_payment" },
-      { sort: "-created_date", limit: 5 }
-    );
-    const recent = (recentPage?.items ?? []).find(
-      (item) =>
-        item.pay_url && Date.now() - new Date(item.created_date).getTime() < 30 * 60 * 1000
-    );
-    if (recent) {
-      return {
-        orderId: recent.id,
-        orderNumber: recent.order_number,
-        payUrl: recent.pay_url,
-        reused: true,
-      };
-    }
-
+    // Every checkout gets its own invoice: an email address alone never unlocks
+    // an existing order's payment link or reference.
     const orderNumber = generateOrderNumber();
+    const accessToken = newOrderToken();
     const order = await base44.entities.Order.create({
       order_number: orderNumber,
       product_id: product.id,
@@ -173,6 +176,7 @@ export const createCheckout = createServerFn({ method: "POST" })
       blockchain: requiresBlockchain ? data.blockchain : "",
       wallet_address: data.walletAddress || "",
       simulated_units: product.simulated_units || 0,
+      access_token: accessToken,
     });
 
     const siteOrigin = origin();
@@ -184,7 +188,7 @@ export const createCheckout = createServerFn({ method: "POST" })
         fee_paid_by_payer: 0,
         under_paid_coverage: 2.5,
         callback_url: `${siteOrigin}/api/oxapay/webhook`,
-        return_url: `${siteOrigin}/order/${order.id}`,
+        return_url: `${siteOrigin}/order/${order.id}?t=${accessToken}`,
         email: data.email.toLowerCase(),
         order_id: orderNumber,
         description: `${product.name} — ChainCore Technologies LLC`,
@@ -213,7 +217,12 @@ export const createCheckout = createServerFn({ method: "POST" })
   });
 
 export const getOrderStatus = createServerFn({ method: "POST" })
-  .validator(z.object({ orderId: z.string().trim().min(6).max(64) }))
+  .validator(
+    z.object({
+      orderId: z.string().trim().min(6).max(64),
+      token: z.string().trim().min(16).max(80),
+    })
+  )
   .handler(async ({ data, context }) => {
     const base44 = context.getBase44().asServiceRole;
     let order = null;
@@ -222,7 +231,9 @@ export const getOrderStatus = createServerFn({ method: "POST" })
     } catch (error) {
       return { found: false };
     }
-    if (!order) return { found: false };
+    // Nothing about the order — and never the licence key — is returned unless
+    // the caller presents the order's own secret from the buyer's link.
+    if (!order || !sameSecret(order.access_token, data.token)) return { found: false };
 
     const apiKey = secrets.get("OXAPAY_API_KEY");
     const stale =

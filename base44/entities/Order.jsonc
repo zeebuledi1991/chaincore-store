@@ -68,6 +68,10 @@
       "type": "string",
       "description": "OxaPay hosted checkout URL"
     },
+    "access_token": {
+      "type": "string",
+      "description": "Unguessable secret that authorises viewing this order's status page and licence"
+    },
     "customer_name": {
       "type": "string"
     },
