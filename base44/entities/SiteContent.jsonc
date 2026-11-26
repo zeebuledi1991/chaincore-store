@@ -12,7 +12,21 @@
     },
     "draft_value": {
       "type": "string",
-      "description": "Unpublished draft value waiting to be published"
+      "description": "Unpublished draft value waiting to be published",
+      "rls": {
+        "read": {
+          "$or": [
+            {
+              "created_by_id": "{{user.id}}"
+            },
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            }
+          ]
+        }
+      }
     },
     "hidden": {
       "type": "boolean",
@@ -21,7 +35,21 @@
     },
     "updated_by": {
       "type": "string",
-      "description": "Email of the administrator who last edited this element"
+      "description": "Email of the administrator who last edited this element",
+      "rls": {
+        "read": {
+          "$or": [
+            {
+              "created_by_id": "{{user.id}}"
+            },
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            }
+          ]
+        }
+      }
     }
   },
   "required": [
