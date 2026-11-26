@@ -112,7 +112,6 @@ export const CONTENT_FIELDS = [
   { key: "product.delivery.flash.3", group: "Product page", label: "Flash package delivery line 3", multiline: true, default: "We will use your selected blockchain." },
   { key: "product.delivery.flash.4", group: "Product page", label: "Flash package delivery line 4", multiline: true, default: "Flash USDT validation period: 180 days." },
   { key: "product.related", group: "Product page", label: "Related products heading", default: "Other products" },
-  { key: "product.note", group: "Product page", label: "Flash package note", multiline: true, default: "These packages contain simulated test units only, not genuine transferable USDT. Units are provisioned for testing and simulation workflows in your selected environment and hold no monetary value." },
 
   // Checkout
   { key: "checkout.total", group: "Checkout", label: "Order total label", default: "Order total" },

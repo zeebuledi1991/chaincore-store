@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Check, Info } from "lucide-react";
+import { ArrowLeft, Check } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import CheckoutPanel from "@/components/store/CheckoutPanel";
 import { useContent } from "@/components/content/ContentProvider";
@@ -107,15 +107,6 @@ function ProductPage() {
                 ))}
               </ul>
             </div>
-
-            {product.kind === "simulation" && (
-              <div className="mt-6 flex items-start gap-3 rounded-lg border border-primary/25 bg-primary/5 p-4">
-                <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                <p className="text-[13px] leading-relaxed text-foreground/85">
-                  {t("product.note")}
-                </p>
-              </div>
-            )}
           </div>
 
           <div className="lg:sticky lg:top-24 lg:self-start">
