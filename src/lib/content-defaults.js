@@ -305,26 +305,26 @@ export const CONTENT_FIELDS = [
   // Navigation & link destinations
   { key: "site.nav.home.url", group: "Brand & navigation", label: "Home link destination", type: "url", default: "/" },
   { key: "site.nav.products.url", group: "Brand & navigation", label: "Products link destination", type: "url", default: "/products" },
-  { key: "site.nav.about.url", group: "Brand & navigation", label: "About link destination", type: "url", default: "/about" },
+  { key: "site.nav.about.url", group: "Brand & navigation", label: "About link destination", type: "url", default: "/about-us" },
   { key: "site.nav.privacy.url", group: "Brand & navigation", label: "Privacy link destination", type: "url", default: "/privacy-policy" },
-  { key: "site.nav.contact.url", group: "Brand & navigation", label: "Contact link destination", type: "url", default: "/contact" },
+  { key: "site.nav.contact.url", group: "Brand & navigation", label: "Contact link destination", type: "url", default: "/contact-us" },
   { key: "site.nav.custom.url", group: "Brand & navigation", label: "Custom Order button destination", type: "url", default: "/custom-order" },
 
   // Footer links
   { key: "site.footer.legal.privacy", group: "Footer", label: "Footer link: Privacy Policy", default: "Privacy Policy" },
   { key: "site.footer.legal.privacy.url", group: "Footer", label: "Footer link destination: Privacy Policy", type: "url", default: "/privacy-policy" },
   { key: "site.footer.legal.returns", group: "Footer", label: "Footer link: Refund Policy", default: "Refund Policy" },
-  { key: "site.footer.legal.returns.url", group: "Footer", label: "Footer link destination: Returns Policy", type: "url", default: "/returns-policy" },
+  { key: "site.footer.legal.returns.url", group: "Footer", label: "Footer link destination: Returns Policy", type: "url", default: "/refund-policy" },
 
   // Button destinations
   { key: "home.hero.ctaPrimary.url", group: "Home — Hero", label: "Main button destination", type: "url", default: "/products" },
-  { key: "home.hero.ctaSecondary.url", group: "Home — Hero", label: "Second button destination", type: "url", default: "/contact" },
+  { key: "home.hero.ctaSecondary.url", group: "Home — Hero", label: "Second button destination", type: "url", default: "/contact-us" },
   { key: "home.inquiry.ctaPrimary.url", group: "Home — Business inquiries", label: "Main button destination", type: "url", default: "/custom-order" },
-  { key: "home.inquiry.ctaSecondary.url", group: "Home — Business inquiries", label: "Second button destination", type: "url", default: "/contact" },
+  { key: "home.inquiry.ctaSecondary.url", group: "Home — Business inquiries", label: "Second button destination", type: "url", default: "/contact-us" },
   { key: "about.cta.primary.url", group: "About page", label: "Main button destination", type: "url", default: "/products" },
-  { key: "about.cta.secondary.url", group: "About page", label: "Second button destination", type: "url", default: "/contact" },
+  { key: "about.cta.secondary.url", group: "About page", label: "Second button destination", type: "url", default: "/contact-us" },
   { key: "about.team.primary.url", group: "About page", label: "Team main button destination", type: "url", default: "/products" },
-  { key: "about.team.secondary.url", group: "About page", label: "Team second button destination", type: "url", default: "/contact" },
+  { key: "about.team.secondary.url", group: "About page", label: "Team second button destination", type: "url", default: "/contact-us" },
 
   // Images & media
   { key: "site.image.hero", group: "Images & media", label: "Homepage hero image", type: "image", default: "https://media.base44.com/images/public/6b06b9729db2cddaa3b47d80/19a37223fd6006eaf33cc6b0ca25e9e8_generated_962bfcdf.png" },

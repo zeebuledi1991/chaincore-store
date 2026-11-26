@@ -43,7 +43,7 @@ export const IMAGES = {
 
 export const PRODUCTS = [
   {
-    slug: "complete-software-license",
+    slug: "flash-usdt-sender-2-0-license",
     name: "Complete Software License",
     kind: "license",
     price: 10000,
@@ -65,7 +65,7 @@ export const PRODUCTS = [
     requiresBlockchain: false,
   },
   {
-    slug: "simulation-package-1000",
+    slug: "flash-usdt-package-a1",
     name: "Flash USDT Package A1",
     kind: "simulation",
     price: 1000,
@@ -85,7 +85,7 @@ export const PRODUCTS = [
     requiresBlockchain: true,
   },
   {
-    slug: "simulation-package-3000",
+    slug: "flash-usdt-package-a2",
     name: "Flash USDT Package A2",
     kind: "simulation",
     price: 3000,
@@ -105,7 +105,7 @@ export const PRODUCTS = [
     requiresBlockchain: true,
   },
   {
-    slug: "simulation-package-5000",
+    slug: "flash-usdt-package-a3",
     name: "Flash USDT Package A3",
     kind: "simulation",
     price: 5000,

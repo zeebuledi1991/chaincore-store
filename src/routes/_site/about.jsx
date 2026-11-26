@@ -1,30 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-import AboutHero from "@/components/about/AboutHero";
-import AboutTeam from "@/components/about/AboutTeam";
-import AboutStory from "@/components/about/AboutStory";
-import AboutCta from "@/components/about/AboutCta";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
+// Old address kept alive: the About Us page now lives at /about-us.
 export const Route = createFileRoute("/_site/about")({
-  head: () => ({
-    meta: [
-      { title: "About Us — ChainCore Technologies LLC" },
-      {
-        name: "description",
-        content:
-          "The innovation of Flash: how ChainCore delivers Flash products worldwide, from our first build in 2015 to global success in 2022 and beyond.",
-      },
-    ],
-  }),
-  component: AboutPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/about-us", replace: true });
+  },
 });
-
-function AboutPage() {
-  return (
-    <>
-      <AboutHero />
-      <AboutTeam />
-      <AboutStory />
-      <AboutCta />
-    </>
-  );
-}

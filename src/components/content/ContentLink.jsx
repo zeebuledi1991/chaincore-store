@@ -5,11 +5,11 @@ import { Link } from "@tanstack/react-router";
 const INTERNAL = new Set([
   "/",
   "/products",
-  "/about",
-  "/contact",
+  "/about-us",
+  "/contact-us",
   "/custom-order",
   "/privacy-policy",
-  "/returns-policy",
+  "/refund-policy",
 ]);
 
 function isInternal(target) {

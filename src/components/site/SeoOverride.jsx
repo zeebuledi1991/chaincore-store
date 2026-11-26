@@ -5,11 +5,11 @@ import { useContent } from "@/components/content/ContentProvider";
 const PAGE_KEYS = {
   "/": "home",
   "/products": "products",
-  "/about": "about",
-  "/contact": "contact",
+  "/about-us": "about",
+  "/contact-us": "contact",
   "/custom-order": "customOrder",
   "/privacy-policy": "privacy",
-  "/returns-policy": "returns",
+  "/refund-policy": "returns",
 };
 
 // Applies the page title and description managed in the CMS. The route's own
