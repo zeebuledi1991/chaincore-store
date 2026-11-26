@@ -1,4 +1,4 @@
-export default function LegalPage({ label, title, intro, updated, sections }) {
+export default function LegalPage({ label, title, intro, updated, updatedLabel = "Last updated", sections }) {
   return (
     <section className="py-16 lg:py-24">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
@@ -15,7 +15,7 @@ export default function LegalPage({ label, title, intro, updated, sections }) {
             </h1>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{intro}</p>
             <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              Last updated {updated}
+              {updatedLabel} {updated}
             </p>
             <nav className="mt-8 hidden border-t border-border/60 pt-5 lg:block" aria-label="On this page">
               <ul className="space-y-2.5">

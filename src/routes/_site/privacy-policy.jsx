@@ -33,7 +33,8 @@ function PrivacyPolicyPage() {
         title={t("privacy.legalTitle")}
         intro={t("privacy.intro")}
         updated={t("privacy.updated")}
-        sections={legalSections(t, "privacy", 7)}
+        updatedLabel="Effective date"
+        sections={legalSections(t, "privacy", 8)}
       />
     </>
   );
