@@ -258,25 +258,23 @@ export const CONTENT_FIELDS = [
   { key: "privacy.s8.body", group: "Privacy Policy page", label: "Section 8 text", multiline: true, default: "For questions, concerns, or requests regarding this Privacy Policy, please contact us:\n\nChainCore Technology L.L.C.\n\nEmail: support@chaincore.store" },
 
   // Returns Policy page
-  { key: "returns.label", group: "Returns Policy page", label: "Page label", default: "Returns Policy" },
-  { key: "returns.title", group: "Returns Policy page", label: "Page heading", default: "Clear terms for digital licences and simulation packages." },
-  { key: "returns.description", group: "Returns Policy page", label: "Page paragraph", multiline: true, default: "What is refundable, how to request it, and how quickly we respond." },
+  { key: "returns.label", group: "Returns Policy page", label: "Page label", default: "Refund Policy" },
+  { key: "returns.title", group: "Returns Policy page", label: "Page heading", default: "Refund Policy" },
+  { key: "returns.description", group: "Returns Policy page", label: "Page paragraph", multiline: true, default: "What is refundable, how to request a refund, and how quickly it is issued." },
   { key: "returns.legalLabel", group: "Returns Policy page", label: "Document label", default: "Legal" },
-  { key: "returns.legalTitle", group: "Returns Policy page", label: "Document title", default: "Returns Policy" },
-  { key: "returns.intro", group: "Returns Policy page", label: "Document intro", multiline: true, default: "Covers software licences, simulation packages and custom engagements purchased from ChainCore Technologies LLC." },
-  { key: "returns.updated", group: "Returns Policy page", label: "Last updated", default: "November 2026" },
-  { key: "returns.s1.title", group: "Returns Policy page", label: "Section 1 title", default: "Refund request procedure" },
-  { key: "returns.s1.body", group: "Returns Policy page", label: "Section 1 text", multiline: true, default: "Email support@chaincore.store with the subject line \"Refund request\", your order number, the email used at checkout and the reason for the request. We confirm receipt within one business day.\n\nRequests must be submitted within 14 days of the payment date. We may ask for diagnostic details so we can reproduce the issue before deciding." },
-  { key: "returns.s2.title", group: "Returns Policy page", label: "Section 2 title", default: "Eligibility requirements" },
-  { key: "returns.s2.body", group: "Returns Policy page", label: "Section 2 text", multiline: true, default: "A refund may be approved where the delivered licence or package materially differs from what was described, where access was never delivered, or where a defect prevents the licensed functionality from operating and we cannot correct it within a reasonable period.\n\n- Software licence keys that have not been activated or used may be refunded within 14 days of purchase.\n- Simulation packages are eligible for refund before the allocated simulated units have been consumed.\n- Charges for custom engagements already in delivery are governed by the written scope agreed for that engagement.\n- Refunds are not available where the request arises from a failure to meet the customer's own environment requirements, or from use outside the agreed licence scope." },
-  { key: "returns.s3.title", group: "Returns Policy page", label: "Section 3 title", default: "Digital product delivery terms" },
-  { key: "returns.s3.body", group: "Returns Policy page", label: "Section 3 text", multiline: true, default: "Licences are digital products delivered by email immediately after payment is verified. No physical shipment takes place. Because delivery is immediate, the 14-day window above is the period in which a refund can be requested.\n\nSimulation packages contain simulated test units only. They are not genuine transferable USDT, carry no monetary value and cannot be exchanged, redeemed or withdrawn. Requests based on an expectation of real USDT delivery are not eligible." },
-  { key: "returns.s4.title", group: "Returns Policy page", label: "Section 4 title", default: "Defective software support" },
-  { key: "returns.s4.body", group: "Returns Policy page", label: "Section 4 text", multiline: true, default: "If licensed software does not perform as described, contact us first. We investigate every reported defect and aim to provide a fix or a workaround within five business days of a reproducible report.\n\nWhere a defect cannot be corrected, we will either replace the affected component, extend the licence period at no charge, or refund the affected portion of the purchase, at your election." },
-  { key: "returns.s5.title", group: "Returns Policy page", label: "Section 5 title", default: "Refund processing timelines" },
-  { key: "returns.s5.body", group: "Returns Policy page", label: "Section 5 text", multiline: true, default: "Approved refunds are returned through the same cryptocurrency payment channel used for the original purchase, to the sending address or an address you nominate in writing.\n\nApproved refunds are initiated within three business days. Blockchain confirmation times are outside our control, and any network fees incurred on the return transfer are deducted from the refunded amount." },
-  { key: "returns.s6.title", group: "Returns Policy page", label: "Section 6 title", default: "Customer support contact" },
-  { key: "returns.s6.body", group: "Returns Policy page", label: "Section 6 text", multiline: true, default: "All refund and delivery questions go to support@chaincore.store. Include your order number so we can locate the transaction without delay.\n\nChainCore Technologies LLC · Copyright 2026 · All rights reserved." },
+  { key: "returns.legalTitle", group: "Returns Policy page", label: "Document title", default: "Refund Policy" },
+  { key: "returns.intro", group: "Returns Policy page", label: "Document intro", multiline: true, default: "Policy applied since November 2022" },
+  { key: "returns.updated", group: "Returns Policy page", label: "Effective date", default: "November 26, 2026" },
+  { key: "returns.s1.title", group: "Returns Policy page", label: "Section 1 title", default: "Overview" },
+  { key: "returns.s1.body", group: "Returns Policy page", label: "Section 1 text", multiline: true, default: "ChainCore is committed to providing a satisfactory experience to our users. This refund policy outlines the terms and connected digital apps. Please read this policy carefully before making a purchase." },
+  { key: "returns.s2.title", group: "Returns Policy page", label: "Section 2 title", default: "Refund eligibility" },
+  { key: "returns.s2.body", group: "Returns Policy page", label: "Section 2 text", multiline: true, default: "We offer refunds within 3 days of the original purchase date.\n\nRefunds will only be considered for the following reasons:\n\n- Technical issues that prevent the app from functioning as intended.\n- Features advertised but not available or not working as described.\n- Duplicate purchases." },
+  { key: "returns.s3.title", group: "Returns Policy page", label: "Section 3 title", default: "Refund process" },
+  { key: "returns.s3.body", group: "Returns Policy page", label: "Section 3 text", multiline: true, default: "To request a refund, please contact our customer dispute team at dispute@chaincore.store, with the subject line “Refund Request”.\n\nProvide the following information in your email:\n\n- Your full name.\n- Email address used for the purchase.\n- Order/reference number.\n- Detailed explanation of the issue or reason for the refund request.\n\nRefund requests will be processed within 3 hours." },
+  { key: "returns.s4.title", group: "Returns Policy page", label: "Section 4 title", default: "Refund conditions" },
+  { key: "returns.s4.body", group: "Returns Policy page", label: "Section 4 text", multiline: true, default: "- Refunds will be issued to the original payment method used for the purchase.\n- Transaction fees will be detected from paid amount.\n- After Refund issued you can expect amount received within one hour." },
+  { key: "returns.s5.title", group: "Returns Policy page", label: "Section 5 title", default: "Need help?" },
+  { key: "returns.s5.body", group: "Returns Policy page", label: "Section 5 text", multiline: true, default: "Contact us at support@chaincore.store for questions related to refunds and returns." },
 
   // Order status page
   { key: "order.label", group: "Order status page", label: "Order reference prefix", default: "Order" },
@@ -316,7 +314,7 @@ export const CONTENT_FIELDS = [
   // Footer links
   { key: "site.footer.legal.privacy", group: "Footer", label: "Footer link: Privacy Policy", default: "Privacy Policy" },
   { key: "site.footer.legal.privacy.url", group: "Footer", label: "Footer link destination: Privacy Policy", type: "url", default: "/privacy-policy" },
-  { key: "site.footer.legal.returns", group: "Footer", label: "Footer link: Returns Policy", default: "Returns Policy" },
+  { key: "site.footer.legal.returns", group: "Footer", label: "Footer link: Refund Policy", default: "Refund Policy" },
   { key: "site.footer.legal.returns.url", group: "Footer", label: "Footer link destination: Returns Policy", type: "url", default: "/returns-policy" },
 
   // Button destinations
@@ -347,8 +345,8 @@ export const CONTENT_FIELDS = [
   { key: "seo.customOrder.description", group: "SEO & metadata", label: "Custom Order page description", multiline: true, default: "Request a custom simulation volume, licence scope or multi-network testing engagement from ChainCore Technologies LLC." },
   { key: "seo.privacy.title", group: "SEO & metadata", label: "Privacy Policy page title", default: "Privacy Policy — ChainCore Technologies LLC" },
   { key: "seo.privacy.description", group: "SEO & metadata", label: "Privacy Policy page description", multiline: true, default: "How ChainCore Technologies LLC collects, uses and protects customer information, order data and payment details." },
-  { key: "seo.returns.title", group: "SEO & metadata", label: "Returns Policy page title", default: "Returns Policy — ChainCore Technologies LLC" },
-  { key: "seo.returns.description", group: "SEO & metadata", label: "Returns Policy page description", multiline: true, default: "Refund eligibility, request procedure, digital delivery terms and support timelines for ChainCore Technologies LLC purchases." },
+  { key: "seo.returns.title", group: "SEO & metadata", label: "Refund Policy page title", default: "Refund Policy — ChainCore Technologies LLC" },
+  { key: "seo.returns.description", group: "SEO & metadata", label: "Refund Policy page description", multiline: true, default: "Refund eligibility, request procedure, refund conditions and support contacts for ChainCore Technologies LLC purchases." },
 ];
 
 export const CONTENT_DEFAULTS = Object.fromEntries(

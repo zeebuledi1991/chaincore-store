@@ -7,11 +7,11 @@ import { legalSections } from "@/lib/legal-content";
 export const Route = createFileRoute("/_site/returns-policy")({
   head: () => ({
     meta: [
-      { title: "Returns Policy — ChainCore Technologies LLC" },
+      { title: "Refund Policy — ChainCore Technologies LLC" },
       {
         name: "description",
         content:
-          "Refund eligibility, request procedure, digital delivery terms and support timelines for ChainCore Technologies LLC purchases.",
+          "Refund eligibility, request procedure, refund conditions and support contacts for ChainCore Technologies LLC purchases.",
       },
     ],
   }),
@@ -33,7 +33,8 @@ function ReturnsPolicyPage() {
         title={t("returns.legalTitle")}
         intro={t("returns.intro")}
         updated={t("returns.updated")}
-        sections={legalSections(t, "returns", 6)}
+        updatedLabel="Effective date"
+        sections={legalSections(t, "returns", 5)}
       />
     </>
   );
